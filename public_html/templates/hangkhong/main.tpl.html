@@ -1,0 +1,71 @@
+{include file='head.tpl.html' title='site-head'}
+<body>
+  <div class="main-page">
+		<div class="main-page__content">
+      <div class="plane__loading">
+        <div class="plane__loading__block">
+            <div class="plane__loading__effect">
+                <div class="plane__loading__khach">
+                </div>
+                <img src="/templates/hangkhong/img/airplane1.png" alt="may bay" class="plane__loading__plane">
+            </div>
+            <div class="plane__loading__progress">
+                <div class="plane__loading__progress__percent"></div>
+            </div>
+            <div class="plane__loading__boarding">
+                boarding
+            </div>
+            <div class="plane__loading__fly">Cất cánh</div>
+        </div>
+    </div>
+        <!-- {if $usingIE  == 1}
+        <img style="max-width: 100%; display: block;margin: auto;" src="/{$templatePath}/{$userTemplate}/img/error.jpg" alt="image">
+        {else}
+        <div class="popup__language">
+          <div class="popup__language__block">
+            <div class="popup__language__heading">Please choose your language!</div>
+            <div class="popup__language__heading">Xin hãy lựa chọn ngôn ngữ!</div>
+            <div class="header__language header__language__popup">
+              <a
+                href="/en/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}"
+                class="{if $lang == 'en'}active{/if}"
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2012/04/18/19/53/flag-37712_960_720.png"
+                  alt="usa"
+                />
+              </a>
+              <a
+                href="/vn/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}"
+                class="{if $lang == 'vn'}active{/if}"
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2012/04/10/23/04/vietnam-26834_640.png"
+                  alt="vn"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        {/if} -->
+        <div class="line-leftoright">
+          <div class="progresssenc"></div>    
+        </div>
+		</div>
+	</div>
+
+  <script type="text/javascript" src="/{$templatePath}/{$userTemplate}/js/jquery-3.6.0.js"></script>
+  <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+  <script src="/{$templatePath}/{$userTemplate}/js/main.js"></script>
+  </body>
+  </html>
+  <!-- <script type="text/javascript">
+    var c = '100%';
+    $(".progresssenc").animate({
+    width: c
+    },5000).promise().done(function () {
+      window.location="/";
+    });
+  </script> -->
+
+

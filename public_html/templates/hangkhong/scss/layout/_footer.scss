@@ -1,0 +1,52 @@
+.footer {
+    background: #273C8B;
+    ul{
+        list-style: none;
+        padding-left: 0;
+    }
+    &__row{
+        display: flex;
+        justify-content: space-between;
+        padding: 130px 0;
+        align-items: center;
+        color: $white-color;
+    }
+    &__block{
+        width: 20%;
+    }
+    &__list{
+        li{
+            font-size: 1.6rem;
+            font-family: mon-light;
+            line-height: 4rem;
+            display: flex;
+            align-items: center;
+            strong{
+                margin-right: 6px;
+            }
+        }
+    }
+    &__socials{
+        display: flex;
+        li{
+            margin-right: 20px;
+            a{
+                text-decoration: none;
+                color: $white-color;
+                i{
+                    font-size: 3rem;
+                }
+            }
+            
+        }
+    }
+    &__logo{
+        width: 260px;
+    }
+    &__address{
+        font-size: 1.6rem;
+        font-family: mon-light;
+        line-height: 4rem;
+    }
+}
+

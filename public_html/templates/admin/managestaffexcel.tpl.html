@@ -1,0 +1,59 @@
+<div class="widget">
+  <div class="title">
+    <h6>Nhập danh sách nhân viên từ excel</h6>
+    <h6><p>Lưu ý:</p>
+    <p>File Excel gồm 10 cột: Username | ID Nhân viên | Tên nhân viên | Giới tính | Email | Địa chỉ | Số điện thoại | Ngày sinh | Vị trí | Ngày vào làm </p>
+     <p>Nếu cột không có dữ liệu nên để trống</p>
+      <p>Username và ID nhân viên không được trùng</p>
+   </h6>
+  </div>
+  <div style="padding:10px;">
+<form name="form1" id="from1"  method="post" class="formContent" enctype="multipart/form-data" class="nhaplieu">
+  <fieldset>
+    
+    <p><label for="avatar"> Import: </label>
+    <input type="file" name="linkfile"  size="25" maxlength="255"  /> <strong style="margin-left:20px;">Loại : .xls, .xlsx (Ms.Excel 2003)</strong><br /><br /></p>
+    <p class="btn"><a href="/download/import_mau.xlsx">File mẫu</a></p>
+    <p class="btn">
+    <input type="hidden" name="op" value="manage">
+    <input type="hidden" name="act" value="staff">
+    <input type="hidden" name="mod" value="excel">
+    <input type="submit" name="ok" id="ok" value="Upload" />
+  </p>
+
+  </fieldset>
+</form>
+<div class="title">
+{if $importsuccess}<p ><label for="mes" style="color: green; font-weight: bold; font-size: 14px;"> Import thành công</label></p>{/if}
+ {if $importfail}
+<p ><label for="mes" style="color: red; font-weight: bold; font-size: 14px;">  Vui lòng chọn file Excel để import</label></p>{/if}
+</div>
+<div class="title">
+  <!-- {if $arrVNID || $arrEMAIL || $arrTEL}
+  <h6><p>Danh sách nhân viên đã import không bao gồm các VNID bên dưới:</p></h6>
+  {/if} -->
+   <!--  {if $arrVNID}
+    <p> + Danh sách nhà phân phối có VNID không đúng:
+      {foreach from=$arrVNID item=vniditem}
+      {if $vniditem}{$vniditem} -  {/if}
+      {/foreach}
+    </p>
+    {/if} -->
+   <!--  {if $arrEMAIL}
+    <p> + Danh sách nhà phân phối có Email không hợp lệ:
+      {foreach from=$arrEMAIL item=emailitem}
+      {if $emailitem}{$emailitem} - {/if}
+      {/foreach}
+    </p>
+    {/if} -->
+  <!--   {if $arrTEL}
+    <p> + Danh sách nhà phân phối không có Số điện thoại:
+      {foreach from=$arrTEL item=telitem}
+      {if $telitem}{$telitem} -  {/if}
+      {/foreach}
+    </p>
+    {/if} -->
+</div>
+
+    </div>
+    </div>

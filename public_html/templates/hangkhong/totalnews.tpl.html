@@ -1,0 +1,82 @@
+
+{include file='head.tpl.html' title='site-head'}
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--color header__bar--2">
+          {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main news">
+        <div class="lazy">
+          {if $imageNewsHeader}
+          <img src="/upload/1/resources/l_{$imageNewsHeader->getProperty('logo')}" alt="news cover" class="news__cover" />
+          {/if}
+        </div>
+        <div class="grid wide">
+          <div class="lazy">
+            <div class="news__list-page" data-effect="slide-right">
+              <ul class="list-page">
+                {if $topNav}
+                {foreach from=$topNav item=item}
+                <li>
+                    <a href="{$item.url}">{$item.name}</a>
+                </li>
+                {/foreach}
+                {/if}
+              </ul>
+            </div>
+          </div>
+        
+          <div class="news__list total-news lazy">
+            <div data-effect="slide-right">
+              <div class="news__heading news__heading--no">{$pageTitle}</div>
+            </div>
+            <div class="row">
+              {if $arrayFinalHome}
+              {foreach from=$arrayFinalHome item=item} 
+              <div class="col l-4 m-12 c-12">
+                <div class="news__item">
+                  <a href="{$item['slug']}" class="news__item__image">
+                    <img src="{$item['img']}" alt="image">
+                  </a>
+                  <div class="news__item__body">
+                    <a href="{$item['slug']}" class="news__item__title">{$item['title']}</a>
+                    <div class="news__item__date">{$item['date_created']|date_format:"d-m-Y"}</div>
+                    <div class="news__item__content">
+                      {$item['sapo']}
+                    </div>
+                    <a href="{$item['slug']}" class="news__item__link">{$locale->msg('see_more')}</a>
+                  </div>
+                </div>
+              </div>
+              {/foreach}
+              {/if}
+            </div>
+            <div>
+            <ul class="total-news__nav">
+              {if isset($rowsPages.pages) && $rowsPages.pages > 1}   
+              {foreach from=$pager item=pageItem1 key=p2}
+              <li>
+                  <a href="{$pageItem1.url}">{$pageItem1.name}</a>
+              </li>
+              {/foreach}
+              <li>
+                <i class="fas fa-circle"></i>
+                <i class="fas fa-circle"></i>
+                <i class="fas fa-circle"></i>
+              </li>
+              {/if}
+            </ul>
+          </div>
+          </div>
+        </div>
+      </main>
+    {include file='footer-info.tpl.html' title='site-footerinfo'}
+  </div>
+  {include file='footer.tpl.html' title='site-footer'}

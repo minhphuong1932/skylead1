@@ -1,0 +1,62 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+html{
+    font-family: 'mon-bold';
+    font-size: 62.5%;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+}
+.wrapper{
+  max-width: 1920px;
+  margin: auto;
+}
+.list-page{
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  align-items: center;
+  li{
+    &:not(:first-child){
+      margin-left: 50px;
+      position: relative;
+      &::before{
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 900; 
+        content: "\f105";
+        font-size: 2rem;
+
+        position: absolute;
+        right: calc(100% + 20px);
+        top: 50%;
+        transform: translateY(-50%);
+        color: $secondary-color;
+      }
+    }
+    a{
+      text-decoration: none;
+      color: $secondary-color;
+      font-size: 1.8rem;
+    }
+  }
+}
+@media (max-width: 1023px){
+  .hide-on-mobile-tablet{
+      display: none;
+  }
+}
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px){
+  .hide-on-tablet{
+      display: none;
+  }
+}
+/* Mobile */
+@media (max-width: 739px){
+  .hide-on-mobile{
+      display: none;
+  }
+}

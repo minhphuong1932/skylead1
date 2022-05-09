@@ -1,0 +1,365 @@
+.plane{
+    overflow: hidden;
+    height: 100vh;
+    .slick-slide{
+        border: none !important;
+    }
+   &__start{
+       background-color: $primary-color;
+       position: relative;
+       video{
+           height: 100%;
+       }
+       &__gif{
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        @include responsive{
+            width: 5.2vw;
+        }
+    }
+   }
+   &__color2{
+       background-color: $primary-color;
+       padding: 0;
+       margin: 0;
+   }
+   &__color1{
+       background-color: $white-color;
+   }
+   &__fly{
+        overflow: hidden;
+        position: relative;
+        &__video{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height:100%;
+        }
+        &__img{
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            width: 30%;
+            transition: all linear 0.3s;
+        }
+        &__scroll{
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            height: 100vh;
+            overflow-y: hidden;
+            width: 100%;
+            transform: translateX(-50%) rotateX(45deg);
+        }
+        &__ul{
+            list-style: none;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            transition: all linear 0.2s;
+            padding-left: 0;
+            transform: translateY(calc(-100%));
+            position: relative;
+            li{
+                transition: all linear 0.3s;
+                transform: scale(0) translateY(-300px);
+                opacity: 0;
+                z-index: 5;
+                position: absolute;
+                span{
+                    color: white;
+                    font-size: 80px;
+                    padding: 24px 0;
+                    @include responsive{
+                        font-size: 4.16vw;
+                    }
+                }
+            }
+        }
+        &__gif{
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            @include responsive{
+                width: 5.2vw;
+            }
+        }
+   }
+   &__video{
+       position: relative;
+      &__bg{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+      }
+      &__block{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 500px;
+          transform: translate(-50%, -40%) scale(1.2);
+          transition: all linear 0.8s;
+          @include responsive{
+              width: 26vw;
+          }
+          &--toggle{
+              width: 500px;
+              transform: translate(-50%, -50%) scale(1);
+          }
+      }
+      &__popup{
+          position: relative;
+          width: 100%;
+          height: 240px;
+          display: block;
+          border: 8px solid $white-color;
+
+          border-radius: 12px;
+
+          box-shadow: $shadow-box;
+          overflow: hidden;
+          transition: all linear 0.2s;
+            @include responsive{
+                height: 12.5vw;
+            }
+          &::before{
+              content: '';
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              opacity: 0;
+              transform: scale(0);
+              transition: all ease-in-out 0.6s;
+          }
+          &:hover{
+              border-width: 4px;
+              &::before{
+                background-color: rgb(0, 0, 0, 0.25);
+                opacity: 1;
+                transform: scale(1);
+              }
+          }
+      }
+      &__play{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 15%;
+
+          z-index: 5;
+       
+      }
+      &__link{
+          width: 100%;
+          text-decoration: none;
+          color: $white-color;
+          font-size: 1.8rem;
+          text-align: center;
+          display: block;
+
+          border: 4px solid $white-color;
+          border-radius: 4px;
+          padding: 7px;
+          margin-top: 12px;
+
+          transition: all ease-in-out 0.3s;
+
+          &:hover{
+              background-color: $white-color;
+              color: $primary-color;
+          }
+      }
+   }
+   &__bottom{
+       position: relative;
+       &__slider{
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+       }
+       &__slide{
+           width: 100vw;
+           height: 100vh;
+           background-size: cover;
+           background-position: center;
+           background-repeat: no-repeat;
+
+           position: relative;
+           &__subtract{
+               position: absolute;
+               top: 0;
+               left: 0;
+               bottom: 0;
+               height: 100%;
+           }
+           &__block{
+               width: 40%;
+               color: $white-color;
+
+               position: absolute;
+               top: 20%;
+               left: 81px;
+           }
+           &__title{
+               font-size: 9rem;
+               line-height: 1.2;
+               text-decoration: none;
+               color: $white-color;
+               @include responsive{
+                   font-size: 4.6875vw;
+               }
+           }
+           &__text{
+               font-size: 1.8rem;
+               @include responsive{
+                   font-size: 0.9375vw;
+               }
+           }
+       }
+       &__nav{
+           position: absolute;
+           width: 50%;
+           bottom: 40px;
+           right: 89px;
+           @include responsive{
+               right: 4.6vw;
+               bottom: 2.08vw;
+           }
+            .slick-list{
+                margin: 0 -16px;
+            }
+           .slick-slide{
+               padding: 16px;
+               cursor: pointer;
+               @include responsive{
+                   padding: 0.8vw;
+               }
+           }
+           .slick-arrow{
+               position: absolute;
+               top: 50%;
+               transform: translateY(-50%);
+           }
+           .next-arrow{
+               left: calc(100% + 20px);
+               cursor: pointer;
+               color: white;
+               background-color: transparent;
+               border: 0;
+               outline: 0;
+               font-size: 5rem;
+               padding: 0;
+               @include responsive{
+                   font-size: 2.6vw;
+               }
+           }
+           .slick-prev{
+               display: none;
+           }
+       }
+       &__item{
+            height: 300px;
+         
+            border-radius: 24px;
+            box-shadow: $shadow-box;
+            overflow: hidden;
+
+            position: relative;
+            @include responsive{
+                height: 15.625vw;
+            }
+            &:hover{
+                .plane__bottom__item__image{
+                    width: 120%;
+                    height: 120%;
+                }
+            }
+            &__block{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: rgba(51, 51, 51, 0.8);
+                padding: 12px 12px 60px;
+                @include responsive{
+                    padding: 12px 12px 3.125vw;
+                }
+            }
+            &__image{
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 100%;
+                height: 100%;
+                transition: all linear 0.3s;
+            }
+            &__title{
+                font-size: 1.8rem;
+                color: $white-color;
+                width: 80%;
+                @include responsive{
+                    font-size: 0.9375vw;
+                }
+            }
+            &__icon{
+                position: absolute;
+                right: 0;
+                bottom: 0;
+
+                background-color: transparent;
+                color: $white-color;
+                font-size: 5rem;
+
+                border: 0;
+                outline: 0;
+
+                cursor: pointer;
+                @include responsive{
+                    font-size: 2.6vw;
+                }
+            }
+       }
+   }
+}
+.plane-slide{
+    width: 100vw;
+    height: 100vh;
+}
+.modal__shadow{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    background-color: $bg-modal;
+    z-index: 20;
+    display: none;
+    &--toggle{
+        display: block;
+        animation: fade linear 0.3s;
+    }
+}

@@ -1,0 +1,92 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+<!-- <div class="contType"><h2>{$locale->msg('notes')}:</h2>{$locale->msg('notes_user')}</div>
+ -->{if $error}
+{if $error.invalid || $error.message}
+{assign var=input value=$error.INPUT}
+<div class="errorBox">
+<h2>{$locale->msg('error_notes')}:</h2>
+<ul class="listStyle">
+{foreach from=$input item=field}
+{if $field.error}<li>{$field.message}</li>{/if}
+{/foreach}
+<li>{$error.message}</li>
+</ul>
+</div>
+{/if}
+{/if}
+<div class="formContent">
+<h1>{$locale->msg('add_new_dependent')}</h1>
+<form action="/{$aScript}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data">
+<fieldset>
+<p><strong>* {$locale->msg('required_fields')}</strong></p>
+<p><label for="status">{$locale->msg('system_status')}:</label>
+<select name="status" id="status" class="small">
+<option value="1"{if isset($error.INPUT) && $error.INPUT.status.value eq 1} selected="selected"{/if}>{$locale->msg('enable')}</option>
+<option value="0"{if isset($error.INPUT) && $error.INPUT.status.value eq 0} selected="selected"{/if}>{$locale->msg('disable')}</option>
+</select></p>
+<p{if isset($error.INPUT) && $error.INPUT.fullname.error} class="errormsg"{/if}><label for="fullname">* {$locale->msg('fullname')}:</label>
+<input class="medium" type="text" value="{if isset($error.INPUT)}{$error.INPUT.fullname.value}{/if}" name="fullname" id="fullname" /></p>
+<p><label for="date_dependent"> Ngày sinh : </label>
+<input placeholder="chọn ngày" style="width: 85px; text-align: center;" value="{if isset($error.INPUT)}{$error.INPUT.date_dependent.value}{/if}" type="text" name="date_dependent" id="date_dependent" class="date"/></p>
+<p><label for="CMND">CMND:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.CMND.value}{/if}" name="CMND" id="CMND" /></p>
+
+<p{if isset($error.INPUT) && $error.INPUT.quanhe.error} class="errormsg"{/if} style="display: inline;"><label for="quan_he">Quan hệ:</label></p>
+<div class="form-group" style="padding-bottom: 10px;">
+      <select id="lunch" name="quanhe" class="selectpicker medium" data-live-search="true" title="Chọn quan hệ">
+        <option value="1"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 1}selected="selected"{/if}>{$locale->msg('vo')}</option>
+				<option value="2"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 2}selected="selected"{/if}>{$locale->msg('chong')}</option>
+				<option value="3"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 3}selected="selected"{/if}>{$locale->msg('cha_de')}</option>
+				<option value="4"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 4}selected="selected"{/if}>{$locale->msg('me_de')}</option>
+				<option value="5"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 5}selected="selected"{/if}>{$locale->msg('cha_vo')}</option>
+				<option value="6"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 6}selected="selected"{/if}>{$locale->msg('me_vo')}</option>
+				<option value="7"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 7}selected="selected"{/if}>{$locale->msg('cha_chong')}</option>
+				<option value="8"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 8}selected="selected"{/if}>{$locale->msg('me_chong')}</option>
+				<option value="9"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 9}selected="selected"{/if}>{$locale->msg('cha_duong')}</option>
+				<option value="10"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 10}selected="selected"{/if}>{$locale->msg('me_ke')}</option>
+				<option value="11"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 11}selected="selected"{/if}>{$locale->msg('cha_nuoi')}</option>
+				<option value="12"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 12}selected="selected"{/if}>{$locale->msg('me_nuoi')}</option>
+				<option value="13"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 13}selected="selected"{/if}>{$locale->msg('con_de')}</option>
+				<option value="14"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 14}selected="selected"{/if}>{$locale->msg('con_nuoi')}</option>
+				<option value="15"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 15}selected="selected"{/if}>{$locale->msg('con_rieng')}</option>
+				<option value="16"{if isset($error.INPUT) && $error.INPUT.quanhe.value eq 16}selected="selected"{/if}>{$locale->msg('con_ngoaigiathu')}</option>
+      </select>
+    </div>
+<p><label for="files">Hình ảnh đính kèm:</label><input type="file" multiple="multiple" name="files[]" id="files[]" />
+</p>
+
+<p class="btn">
+<input type="hidden" name="order[view]" value="1" id="order[view]" />
+<input type="hidden" name="order[add]" value="1" id="order[add]" />
+<input type="hidden" name="order[edit]" value="1" id="order[edit]" />
+<input type="hidden" name="order[delete]" value="1" id="order[delete]" />
+<input type="hidden" name="order[clean]" value="1" id="order[clean]" />
+
+<input type="hidden" name="customer[view]" value="1" id="customer[view]" />
+<input type="hidden" name="customer[add]" value="1" id="customer[add]" />
+<input type="hidden" name="customer[edit]" value="1" id="customer[edit]" />
+<input type="hidden" name="customer[delete]" value="1" id="customer[delete]" />
+<input type="hidden" name="customer[clean]" value="1" id="customer[clean]" />
+
+<input type="hidden" name="groups[view]" value="1" id="groups[view]" />
+<input type="hidden" name="groups[add]" value="1" id="groups[add]" />
+<input type="hidden" name="groups[edit]" value="1" id="groups[edit]" />
+<input type="hidden" name="groups[delete]" value="1" id="groups[delete]" />
+<input type="hidden" name="groups[clean]" value="1" id="groups[clean]" />
+
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="staff" />
+<input type="hidden" name="mod" value="dependentadd" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="uid" value="{$id}" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="submit" value="{$locale->msg('button_submit')}" title="{$locale->msg('button_submit')}" name="btnSubmit" />
+<input type="reset" value="{$locale->msg('button_reset')}" title="{$locale->msg('button_reset')}" name="btnReset" />
+<input type="button" onclick="javascript:formSubmit('formAdd','list','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+</p>
+</fieldset>
+</form>
+</div>
+</div>

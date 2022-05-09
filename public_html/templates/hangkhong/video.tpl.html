@@ -1,0 +1,160 @@
+{include file='head.tpl.html' title='site-head'}
+
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--color header__bar--2">
+          {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main news">
+        {if $imageNewsHeader}
+        <div class="image__zoom__block">
+          <img src="/upload/1/resources/l_{$imageNewsHeader->getProperty('logo')}" alt="news cover" class="news__cover image__zoom--toggle" />
+        </div>
+        {/if}
+        <div class="grid wide">
+          <div class="news__list total-news video--main lazy">
+            <div class="news__list-page" data-effect="slide-right">
+              <ul class="list-page">
+                {if $topNav}
+                {foreach from=$topNav item=item}
+                <li>
+                    <a href="{$item.url}">{$item.name}</a>
+                </li>
+                {/foreach}
+                {/if}
+              </ul>
+            </div>
+            <div class="row">
+              {if $arrayFinalHome}
+              {foreach from=$arrayFinalHome item=item} 
+              <!-- id="{$item['idVideo']}" -->
+              <div class="col l-4 m-6 c-6">
+                <div class="video__item" >
+                  <div class="video__item__link" data-link="{$item['video']}">
+                    <img src="#" alt="image">
+                  </div>
+                  <div class="video__item__body">
+                    <div class="video__item__title">{if $lang=="vn"}{$item['title']}{else}{$item['title_en']}{/if}</div>
+                    <div class="video__item__content">
+                      {if $lang=="vn"}{$item['content']}{else}{$item['content_en']}{/if}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/foreach}
+              {/if}
+            </div>
+            <div>
+              <ul class="total-news__nav">
+                {if isset($rowsPages.pages) && $rowsPages.pages > 1}   
+                {foreach from=$pager item=pageItem1 key=p2}
+                    <li>
+                    <a href="{$pageItem1.url}">{$pageItem1.name}</a>
+                    </li>
+                {/foreach}
+                <li>
+                  <i class="fas fa-circle"></i>
+                  <i class="fas fa-circle"></i>
+                  <i class="fas fa-circle"></i>
+                </li>
+                {/if}
+              </ul>
+            </div>
+          </div>
+          <div class="detail-video video--extra">
+            <div class="news__list-page">
+              <ul class="list-page2">
+                <li>
+                  <a href="/{$lang}/video.html">Video</a>
+                </li>
+                <li>
+                  <a class="detail-video__current__title"></a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col l-7 m-12 c-12">
+                <div class="detail-video__current">
+                  <div class="detail-video__player-block">
+                    <div id="detail-video__player"></div>
+                  </div>
+                  <div class="detail-video__current__block">
+                    <div class="detail-video__current__title">
+                    </div>
+                    <div class="detail-video__current__content">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col l-5 m-12 c-12">
+                <div class="news__heading news__heading--no" >{$locale->msg('videos_topic')}</div>
+                <div class="detail-video__list">
+                  {if $listVideos}
+                  {foreach from=$listVideos item=item} 
+                  <div class="detail-video__item" id="{$item->getId()}">
+                    <div class="detail-video__image" data-link="{$item->getProperty('custom_link_video')}">
+                      <img src="#" alt="image">
+                    </div>
+                    <div class="detail-video__body">
+                      <div class="detail-video__title">{if $lang =="vn"}{$item->getProperty('custom_title_ads')}{else}{$item->getProperty('custom_en_title')}{/if}</div>
+                      <div class="detail-video__content">
+                        {if $lang =="vn"}{$item->getProperty('custom_content_ads')}{else}{$item->getProperty('custom_en_sapo')}{/if}
+                      </div>
+                    </div>
+                  </div>
+                  {/foreach}
+                  {/if}
+                </div>
+              </div>
+              <div class="col l-12 m-12 c-12">
+                <div class="detail-video__link__block">
+                  <a class="about__slider__link about__slider__link--no detail-video__link" href="#">
+                    <span>{$estore->getProperty('custom_title_input')}</span>
+                    <img src="/{$templatePath}/{$userTemplate}/img/planeicon.png" alt="image">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="news__list">
+              <div class="news__heading news__heading--no">{$locale->msg('news')}</div>
+              <div class="row">
+                {if $listNews}
+                {foreach from=$listNews item=item}
+                <div class="col l-4 m-12 c-12">
+                  <div class="news__item">
+                    <a href="/{$lang}/{$item->getSlug({$lang})}-{$item->getId()}" class="news__item__image" >
+                      <img src="/upload/1/articles/l_{$item->getProperty('avatar')}" alt="image">
+                    </a>
+                    <div class="news__item__body">
+                      <a href="/{$lang}/{$item->getSlug({$lang})}-{$item->getId()}" class="news__item__title">{$item->getTitle({$lang})}</a>
+                      <div class="news__item__date">{$item->getDateCreated()|date_format:"d-m-Y"}</div>
+                      <div class="news__item__content">
+                        {$item->getSapo({$lang})}
+                      </div>
+                      <a href="/{$lang}/{$item->getSlug({$lang})}-{$item->getId()}" class="news__item__link">{$locale->msg('see_more')}</a>
+                    </div>
+                  </div>
+                </div>
+                {/foreach}
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about__slider__popup plane-form__container">
+          <i class="fas fa-times"></i>
+          <form id="plane-form" class="plane-form">
+            {include file='form.tpl.html' title='site-form'}
+          </form>
+        </div>
+      </main>
+      {include file='footer-info.tpl.html' title='site-footerinfo'}
+    </div>
+    {include file='footer.tpl.html' title='site-footer'}

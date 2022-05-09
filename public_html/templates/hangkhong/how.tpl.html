@@ -1,0 +1,166 @@
+{include file='head.tpl.html' title='site-head'}
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--2">
+          {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main how">
+      <div class="how__slider">
+        {if $newsPilot}
+        {foreach from=$newsPilot item=itemPilot}
+        <div class="how__top shadow-plane-0 image__zoom__block" >
+          <div class="image__zoom image__zoom--toggle" style="background-image: url(/upload/1/resources/l_{$itemPilot->getProperty('logo')})"></div>
+          <div class="how__top__block">
+            {if $lang =="vn"}
+            {$itemPilot->getProperty('detail')}
+            {else}
+            {$itemPilot->getProperty('detail_en')}
+            {/if}
+          </div>
+        </div>
+        {/foreach}
+        {/if}
+        {if $finalData}
+            {foreach from=$finalData item=itemCate}
+                    {if $itemCate['css'] == 1}
+                    <div class="how__slide shadow-plane-1">
+                        <div class="how__slide__block">
+                            <div class="how__slide__left">
+                            <div class="how__slide__image" style="background-image: url(/upload/1/articles/l_{$itemCate['avatar']})"></div>
+                            </div>
+                            <div class="how__slide__right">
+                            <div class="how__slide__right__title how__title">{$itemCate['name']} </div>
+                            <input hidden class="idCategory" value="{$itemCate['id']}">
+                            <ul>
+                                {foreach from=$itemCate['listArticle'] item=itemArticle}
+                                <li>
+                                <a href="/{$lang}/{$itemArticle['slug']}-{$itemArticle['id']}">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>{$itemArticle['name']}</span>
+                                </a>
+                                </li>
+                                {/foreach}
+
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {else if $itemCate['css'] == 2}
+                    <div class="how__slide shadow-plane-2">
+                        <div class="how__slide__block how__slide__block--2">
+                          <div class="how__slide__left how__slide__left--2">
+                            <div class="how__slide__image" style="background-image: url(/upload/1/articles/l_{$itemCate['avatar']})"></div>
+                          </div>
+                          <div class="how__slide__right how__slide__right--2">
+                            <div class="how__slide__right__title how__title">{$itemCate['name']}</div>
+                            <input hidden class="idCategory" value="{$itemCate['id']}">
+                            <ul>
+                                {foreach from=$itemCate['listArticle'] item=itemArticle}
+                                <li>
+                                    <a href="/{$lang}/{$itemArticle['slug']}-{$itemArticle['id']}">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>{$itemArticle['name']}</span>
+                                    </a>
+                                </li>
+                                {/foreach}
+                        
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                    {else if $itemCate['css'] == 4}
+                    <div class="how__contact shadow-plane-4 image__zoom__block">
+                     <div class="image__zoom" style="background-image: url(/upload/1/articles/l_{$itemCate['avatar']})"></div>
+                        <div class="how__contact__block">
+                          <div class="how__contact__title how__title">{$itemCate['name']}</div>
+                          <input hidden class="idCategory" value="{$itemCate['id']}">
+                          <ul>
+                            {foreach from=$itemCate['listArticle'] item=itemArticle}
+                            <li>
+                                <a href="/{$lang}/{$itemArticle['slug']}-{$itemArticle['id']}">
+                                <span>{$itemArticle['name']}</span>
+                                <i class="fas fa-check-circle"></i>
+                                </a>
+                            </li>
+                            {/foreach}
+                          </ul>
+                        </div>
+                      </div>
+                    {/if}
+            {/foreach}
+        {/if}
+        <div class="how__bot shadow-plane-5">
+          <div class="how__title" style="position: absolute; opacity: 0;">{$locale->msg('discover')}</div>
+          <div class="how__bot__item">
+            <a class="how__bot__item__icon">
+              <span>{$locale->msg('start_journeys')}</span>
+            </a>
+            <div class="how__bot__item__hover">
+              <a class="how__bot__item__icon--back">
+                <span>{$locale->msg('back')}</span>
+              </a>
+              <form id="plane-form" class="plane-form how__bot__form">
+                  {include file='form.tpl.html' title='site-form'}
+              </form>
+            </div>
+          </div>
+          <div class="how__bot__item" style="--item-color: #5ebcde">
+            <a class="how__bot__item__icon"> <span>{$locale->msg('research')}</span> </a>
+            <div class="how__bot__item__hover how__bot__item__hover--3">
+              <a class="how__bot__item__icon--back">
+                <span>{$locale->msg('back')}</span>
+              </a>
+              <div class="how__bot__item__question">
+                <div class="how__bot__item__question__title">{$locale->msg('question')}</div>
+                <ul>
+                    {if $newsquestion}
+                    {foreach from=$newsquestion item=itemQuestions}
+                        <li>
+                        <a href="/{$lang}/{$itemQuestions->getSlug()}-{$itemQuestions->getId()}">
+                            <i class="fas fa-question-circle"></i>
+                            <span>{$itemQuestions->getTitle($lang)}</span>
+                        </a>
+                        </li>
+                    {/foreach}
+                    {/if}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="how__duongbang">
+          <img class="how__duongbang__duong" src="/{$templatePath}/{$userTemplate}/img/duongbay.png" alt="duong bay" />
+          <div class="how__duongbang__plane">
+            <img src="/{$templatePath}/{$userTemplate}/img/maby.png" alt="may bay" />
+            <span>{$locale->msg('start')}</span>
+          </div>
+          <div class="how__duongbang__all">
+            <a data-scroll="shadow-plane-0"  title="{$locale->msg('start')}" class="how__duongbang__shadow-plane">
+              <img src="/{$templatePath}/{$userTemplate}/img/plane2.png" alt="shawdow plane">
+            </a>
+            {if $finalData}
+            {foreach from=$finalData item=itemCate}
+            <a data-scroll="shadow-plane-{$itemCate['postion']}" id="{$itemCate['id']}" title="{$itemCate['name']}" class="how__duongbang__shadow-plane">
+              <img src="/{$templatePath}/{$userTemplate}/img/plane2.png" alt="shawdow plane">
+            </a>
+            {/foreach}
+            {/if}
+            <a data-scroll="shadow-plane-5" title="{$locale->msg('discover')}" class="how__duongbang__shadow-plane">
+              <img src="/{$templatePath}/{$userTemplate}/img/plane2.png" alt="shawdow plane">
+            </a>
+          </div>
+        </div>
+      </main>
+
+      <input type="hidden" name="over-plane" id="over-plane" value="/{$templatePath}/{$userTemplate}/img/maby.png">
+      <input type="hidden" name="out-plane" id="out-plane" value="/{$templatePath}/{$userTemplate}/img/plane2.png">
+    </div>
+    {include file='footer.tpl.html' title='site-footer'}

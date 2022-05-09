@@ -1,0 +1,52 @@
+<footer class="footer">
+    <div class="grid wide footer__row">
+        <div class="footer__block">
+        <ul class="footer__list">
+            <li>
+            <strong>{$locale->msg('hotline')}:</strong>
+            {$estore->getTel()}
+            </li>
+            <li>
+            <strong>Email:</strong>
+            {$estore->getEmail()}
+            </li>
+        </ul>
+        <ul class="footer__socials">
+            <li>
+            <a href="{$estore->getProperty('custom_linkfb')}">
+                <i class="fab fa-facebook-square"></i>
+            </a>
+            </li>
+            <li>
+            <a href="{$estore->getProperty('custom_instagram')}">
+                <i class="fab fa-instagram"></i>
+            </a>
+            </li>
+            <li>
+            <a href="{$estore->getProperty('custom_linkyoutube')}">
+                <i class="fab fa-youtube-square"></i>
+            </a>
+            </li>
+        </ul>
+        </div>
+        <a href="/" class="footer__block footer__block--2">
+            <img class="footer__logo" src="{$estore->getProperty('logo_footer')}" alt="logo footer" />
+            <div class="footer__slogan">
+                {if $lang=="vn"}
+                {$estore->getProperty('custom_slogan')}
+                {else}
+                {$estore->getProperty('custom_en_slogan')}
+                {/if}
+            </div>
+        </a>
+        <div class="footer__block">
+            <div class="footer__address">
+                {if $lang=="vn"}
+                {$estore->getAddress()}
+                {else}
+                {$estore->getProperty('address_en')}
+                {/if}
+            </div>
+        </div>
+    </div>
+</footer>

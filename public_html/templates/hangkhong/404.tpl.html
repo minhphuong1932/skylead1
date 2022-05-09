@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>404</title>
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/style.css">
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/libs/plugins/bootstrap.min.css">
+        <style>
+          .container{
+            background: url(/{$templatePath}/{$userTemplate}/images/404.png) center center no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px 0px 0px 20px;
+            position: relative;
+          }
+        </style>
+  </head>
+  <body>
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <div class="hero-unit center">
+          {if $lang=="vn"}
+          <h1>Không tìm thấy trang bạn yêu cầu <small><font face="Tahoma" color="red">Lỗi 404</font></small></h1>
+          <br/>
+          <p>Trang bạn yêu cầu đã không còn tồn tại, vui lòng liên hệ với quản trị viên hoặc<b>
+          
+          <a href="/" class="btn btn-large btn-info" style="color:red"><i class="icon-home icon-white"></i> Trở về Trang chủ</a>
+          {else}
+          <h1>The requested page could not be found <small><font face="Tahoma" color="red">404 error</font></small></h1>
+          <br/>
+          <p>The page you requested no longer exists, please contact the administrator or<b>
+        
+          <a href="/" class="btn btn-large btn-info" style="color:red"><i class="icon-home icon-white"></i> Back to Home</a >
+          {/if}
+
+        </div>
+        <br/>
+    </div>
+  </div>
+</div>
+</body>
+</html>

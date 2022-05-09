@@ -1,0 +1,35 @@
+<script  src="/{$templatePath}/{$userTemplate}/js/validate.js{$estore->getProperty('custom_version_css_js')}"></script>
+<script  src="/{$templatePath}/{$userTemplate}/js/form.js{$estore->getProperty('custom_version_css_js')}"></script>
+<script  src="/{$templatePath}/{$userTemplate}/js/jquery-3.6.0.js"></script>
+<script  src="/{$templatePath}/{$userTemplate}/js/slick.js{$estore->getProperty('custom_version_css_js')}"></script>
+<script  src="/{$templatePath}/{$userTemplate}/js/lity.min.js{$estore->getProperty('custom_version_css_js')}"></script>
+<!-- <script  src="/{$templatePath}/{$userTemplate}/js/plyr.js{$estore->getProperty('custom_version_css_js')}"></script> -->
+<script  src="/{$templatePath}/{$userTemplate}/js/jquery.parallax.js"></script>
+<script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script  src="/{$templatePath}/{$userTemplate}/js/main.js{$estore->getProperty('custom_version_css_js')}"></script>
+<script>
+//Lưu thông tin khách 
+function saveInformation() {
+  var name = $('#plane-name').val();
+  var phone = $('#plane-phone').val();
+  var email = $('#plane-email').val();
+  var op = "save_infomation";
+  $.ajax({
+    type: 'POST',
+    url: '/ajax.php',
+    dataType: "json",
+    data: { op, name,phone,email},
+    success: function (data) {
+      // console.log(data)
+      if(data['success']==1){
+        document.getElementById("plane-form").reset();
+        // notiStack('success','Đã gửi thông tin thành công');
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
+

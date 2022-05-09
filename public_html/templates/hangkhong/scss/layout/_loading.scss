@@ -1,0 +1,41 @@
+.loading{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: $white-color;
+    z-index: 999999;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: $black-color;
+    &__text{
+        position: relative;
+        margin: auto;
+        font-family: 'UTM A&S Signwriter';
+        color: $white-color;
+        height: 100px;
+        font-size: 8rem;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: $primary-color;
+        @include mobile{
+            font-size: 4rem;
+        }
+        &::before{
+            color: $primary-color;
+            white-space: nowrap;
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-transition: 1s;
+            -o-transition: 1s;
+            transition: 1s;
+            overflow: hidden;
+            height: 100%;
+            -webkit-animation: loading linear infinite 1.5s;
+                    animation: loading linear infinite 1.5s;
+        }
+    }
+}

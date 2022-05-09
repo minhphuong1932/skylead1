@@ -1,0 +1,93 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+<!--<h1 style="color:red">Phần này đang có lỗi, vui lòng không sử dụng</h1>-->
+{if $listItems}
+<form action="/{$aScript}" method="post" name="formType" id="formType">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<thead>
+<tr>
+<th><input type="checkbox" name="all" id="all" value="1" class="box3" onclick="toggleAllChecks('formType');" /></th>
+<th>{$locale->msg('numbers')}</th>
+<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','id_user','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('idNV')}">{$locale->msg('idNV')}</a>{if $sk eq "id_user"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th>{$locale->msg('fullname')}</th>
+<th>{$locale->msg('position')}</th>
+<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','date_start','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('salary_period')}">{$locale->msg('salary_period')}</a>{if $sk eq "date_start"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th class="right"><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','money','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="Số tiền">Số tiền</a>{if $sk eq "money"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','date_created','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('date_created')}">{$locale->msg('date_created')}</a>{if $sk eq "date_created"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onClick="javascript:MM_sortField('parent','{$sk}','status_paid','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('arrangement_by_status')}">{$locale->msg('paid_status')}</a>{if $sk eq "status_paid"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onClick="javascript:MM_sortField('parent','{$sk}','status_censored','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('arrangement_by_status')}">{$locale->msg('censored_status')}</a>{if $sk eq "status_censored"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onClick="javascript:MM_sortField('parent','{$sk}','status','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('arrangement_by_status')}">{$locale->msg('system_status')}</a>{if $sk eq "status"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+
+<th>{$locale->msg('actions')}</th>
+</tr>
+</thead>
+<tbody>
+{foreach key=no from=$listItems item=item}
+<tr{if $no%2 eq 0} class="bgType"{/if}>
+<td><input type="checkbox" name="ids[]" id="ids[]" value="{$item->getId()}" class="box3" /></td>
+<td>{$startNum+$no}</td>
+<td>{$users->getidNVFromId($item->getIdUser())}</td>
+<td>{$users->getFullNameFromId($item->getIdUser())}</td>
+<td>{$users->getTypeTextBackendFromId($item->getIdUser())}</td>
+<td>{$item->getDateStart()|date_format:"%Y-%m"}</td>
+<td class="right">{$item->getMoney()|number_format} VND</td>
+<td>{$item->getDateCreated()|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+<td>{$item->getStatusPaidTextBackend()}</td>
+<td>{$item->getStatusCensoredTextBackend()}</td> 
+<td>{$item->getStatusTextBackend()}</td>
+
+<td>
+ {if $item->getStatusCensored() eq 1}
+	<a href="javascript:formSubmit('formType','uniformlist','enable',{$item->getId()});" title="{$locale->msg('enable')}"><img src="/{$templatePath}/{$userTemplate}/images/ico_enable.png" alt="{$locale->msg('enable')}" width="16" height="16" /></a>
+
+	<a href="javascript:formSubmit('formType','uniformlist','disable',{$item->getId()});" title="{$locale->msg('disable')}"><img src="/{$templatePath}/{$userTemplate}/images/ico_disable.png" alt="{$locale->msg('disable')}" width="16" height="16" /></a>
+
+	<a href="javascript:formSubmit('formType','uniformlist','delete',{$item->getId()});" title="{$locale->msg('delete')}"><img src="/{$templatePath}/{$userTemplate}/images/ico_delete.png" alt="{$locale->msg('delete')}" width="16" height="16" /></a>
+	<a href="javascript:formSubmit('formType','uniformlist','paid',{$item->getId()});" title="{$locale->msg('paid_')}"><img src="/{$templatePath}/{$userTemplate}/images/ico_paid.png" alt="{$locale->msg('paid_')}" width="16" height="16" /></a>
+	<a href="javascript:formSubmit('formType','uniformlist','censored',{$item->getId()});" title="{$locale->msg('censored')}"><img src="/{$templatePath}/{$userTemplate}/images/ico_check.png" alt="{$locale->msg('censored')}" width="16" height="16" /></a>
+	{/if} 
+
+</td>
+</tr>
+{/foreach}
+</tbody>
+</table>
+<div class="paging">
+<p class="listBtn">
+	<a title="{$locale->msg('button_enable')}" href="javascript:void(0);" onclick="javascript:formSubmit('formType','uniformlist','enable','0');;">{$locale->msg('button_enable')}</a>
+	<a title="{$locale->msg('button_disable')}" href="javascript:void(0);" onclick="javascript:formSubmit('formType','list','disable','0');">{$locale->msg('button_disable')}</a>
+	<a title="{$locale->msg('button_delete')}" href="javascript:void(0);" onclick="javascript:formSubmit('formType','uniformlist','delete','0');">{$locale->msg('button_delete')}</a>
+	<a title="{$locale->msg('paid_')}" href="javascript:void(0);" onclick="javascript:formSubmit('formType','uniformlist','paid','0');">{$locale->msg('paid_')}</a>
+	<a title="{$locale->msg('censored')}" href="javascript:void(0);" onclick="javascript:formSubmit('formType','uniformlist','censored','0');">{$locale->msg('censored')}</a>
+</p>
+	
+	
+{include file="$userTemplate/corepager.tpl.html" title=pager}
+</div>
+<div class="infoType2">
+{include file="$userTemplate/corecomboipp.tpl.html" title=ipp}
+
+</div>
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="staff" />
+<input type="hidden" name="mod" value="othermoneylist" />
+<input type="hidden" name="uid" value="{$uid}" />
+<input type="hidden" name="doo" value="" />
+<input type="hidden" name="kw" value="{$kw}" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="hidden" name="ipp" value="{$ipp}" />
+<input type="hidden" name="sk" value="{$sk}" />
+<input type="hidden" name="sd" value="{$sd}" />
+<input type="hidden" name="pg" value="{$pg}" />
+<input type="hidden" name="id" value="" />
+</form>
+{else}
+{$locale->msg('no_record')}
+<form action="/{$aScript}" method="post" name="formType" id="formType">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="staff" />
+<input type="hidden" name="mod" value="othermoneylist" />
+<input type="hidden" name="doo" value="" />
+</form>
+{/if}
+</div>

@@ -1,0 +1,185 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+{if $error}
+{if $error.invalid || $error.message}
+{assign var=input value=$error.INPUT}
+<div class="errorBox">
+<h2>{$locale->msg('error_notes')}:</h2>
+<ul class="listStyle">
+{foreach from=$input item=field}
+{if $field.error}<li>{$field.message}</li>{/if}
+{/foreach}
+<li>{$error.message}</li>
+</ul>
+</div>
+{/if}
+{/if}
+<div class="formContent">
+<h1>{$locale->msg('add_banner')}</h1>
+<form action="/{$aScript}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data" >
+<fieldset>
+<p><strong>* {$locale->msg('required_fields')}</strong></p>
+<!-- <p><label for="expert_id_list" style="color: red">Cùng thuộc chuyên gia: <br> Lưu ý: chỉ chọn cho đối tác chuyên gia<br>(Nhấn và giữ phím Ctr để chọn nhiều chuyên gia)</label>
+	<select name="expert_id_list[]" id="expert_id_list" multiple="multiple" style="height: 100px;">
+        <option value="0">Chọn</option>
+        {if $listExpert}
+        {$listExpert}
+        {/if} 
+    </select>
+</p> -->
+<p><label for="cat_id">{$locale->msg('of_group')}:</label>
+<select name="gId" id="gId">
+{if $listAdsCate}
+{foreach from=$listAdsCate item=adscateiem}
+<option value="{$adscateiem->getId()}"{if isset($error.INPUT) && $error.INPUT.gId.value eq $adscateiem->getId()} selected="selected"{/if}>{$adscateiem->getName()}{if $adscateiem->getPId() > 0} (Thuộc dự án {$articles->getNameFromId($adscateiem->getPId())}){/if}</option>
+{/foreach}
+{/if}
+</select>
+</p>
+
+<!-- <p><label for="status">Thuộc dự án:</label>
+<select name="tid" id="tid">
+{if $listArticlePro}
+{foreach from=$listArticlePro item=artiproitem}
+<option value="{$artiproitem->getId()}"{if isset($error.INPUT) && $error.INPUT.tid.value eq $artiproitem->getId()} selected="selected"{/if}>{$artiproitem->getTitle()}</option>
+{/foreach}
+{/if}
+</select></p> -->
+
+<p><label for="status">{$locale->msg('system_status')}:</label>
+<select name="status" id="status">
+<option value="1"{if isset($error.INPUT) && $error.INPUT.status.value eq 1} selected="selected"{/if}>{$locale->msg('enable')}</option>
+<option value="0"{if isset($error.INPUT) && $error.INPUT.status.value eq 0} selected="selected"{/if}>{$locale->msg('button_disable')}</option>
+</select></p>
+<p{if isset($error.INPUT) && $error.INPUT.position.error} class="errormsg"{/if}><label for="position">* {$locale->msg('position')}:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.position.value}{else}1{/if}" name="position" id="position" /></p>
+<!-- <div class="boxTyle">
+<label for="urllogo">{$locale->msg('url_banner')}:</label><input type="text" name="urllogo" id="urllogo" /></label>
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+<h4>{$locale->msg('url_banner')}</h4>
+<p>{$locale->msg('note_urllogo')}</p>
+</div>
+</div>
+</div> -->
+<p><label>{$locale->msg('banner_type_from_url')}:</label>
+<select name="typeurl">
+<option value="img" >Image</option>
+<!-- <option value="swf" >Flash</option>
+<option value="video" >Video</option> -->
+</select></p>
+<!-- <div class="boxTyle">
+<label for="articleimg">Ảnh từ thư viện:</label>
+<input class="selectPhoto" type="type" value="{if isset($error.INPUT)}{$error.INPUT.articleimg.value}{/if}" name="articleimg" id="articleimg" />
+</div> -->
+<div class="boxTyle">
+<label for="photos">{$locale->msg('add_image_or_video')}:</label><input type="file" name="logo" id="logo" /></label>
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+<h4>{$locale->msg('add_image_or_video')}</h4>
+<p>{$locale->msg('note_logo')}</p>
+</div>
+</div>
+</div>
+
+<div class="boxTyle">
+<label for="photos">Hình ảnh: </label><input type="file" name="the_plane" id="the_plane" /></label>
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+<h4>Cập nhật hình ảnh </h4>
+<p>Chỉ update hình ảnh ( background ) ở trang chủ .</p>
+</div>
+</div>
+</div>
+
+<!-- <label for="url">{$locale->msg('url_banner')}:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.url.value}{/if}" name="url" id="url" /> -->
+<p>
+    <p><label for="detail">{$locale->msg('detail')}:</label></p>
+    <textarea rows="10" cols="20" name="detail" id="detail" class="detailtext" contenteditable="true"></textarea>
+    {literal}<script type="text/javascript">var editor = CKEDITOR.replace('detail');</script>{/literal} 
+</p>
+<p>
+    <p><label for="detail_en">{$locale->msg('detail_en')}:</label></p>
+    <textarea rows="10" cols="20" name="detail_en" id="detail_en" class="detailtext" contenteditable="true"></textarea>
+    {literal}<script type="text/javascript">var editor = CKEDITOR.replace('detail_en');</script>{/literal} 
+</p>
+<!-- <div class="boxTyle">
+    <label for="with">{$locale->msg('width')} (pixel):</label>
+    <input type="text" value="{if isset($error.INPUT)}{$error.INPUT.with.value} {/if}" name="width" id="width" />
+    <div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+    <div class="alertPopup">
+    <h4>{$locale->msg('width')}</h4>
+    <p>{$locale->msg('note_width_logo')}</p>
+</div>
+</div>
+</div>
+<div class="boxTyle">
+<label for="height">{$locale->msg('height')} (pixel):</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.height.value}{/if}" name="height" id="height" />
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+<h4>{$locale->msg('height')}</h4>
+<p>{$locale->msg('note_heigt_logo')}</p>
+</div>
+</div>
+</div> -->
+<!-- <div class="boxTyle">
+ <label for="url">{$locale->msg('url_ads')}:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.url.value}{/if}" name="url" id="url" />
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+<h4>{$locale->msg('url_ads')}</h4>
+<p>{$locale->msg('note_url_logo')}</p>
+</div>
+</div>
+</div> -->
+<!-- <p class="boxTyle">
+<label for="bannersub">Banner con:</label>
+<input type="file" name="bannersub[]" multiple="multiple">
+</p> -->
+<!-- <p class="boxTyle">
+<label for="caption">Ghi chú hình ảnh:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.caption.value}{/if}" name="caption" id="caption" style="width: 300px;" />
+</p>
+<p class="boxTyle">
+<label for="caption_en">Ghi chú hình ảnh(Tiếng anh):</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.caption_en.value}{/if}" name="caption_en" id="caption_en" style="width: 300px;" />
+</p> -->
+<!-- 
+<p class="boxTyle">
+<label for="url">Nội dung bổ sung:</label></p>
+<textarea rows="10" cols="20" name="altcontent" id="altcontent">{if isset($error.INPUT)}{$error.INPUT.altcontent.value}{/if}</textarea>
+{literal}<script type="text/javascript">var editor = CKEDITOR.replace('altcontent');</script>{/literal}
+<p{if isset($error.INPUT) && $error.INPUT.detail.error} class="errormsg"{/if}><label for="detail">* Nội dung Tiếng anh:</label></p>
+<textarea rows="10" cols="20" name="detail_en" id="detail_en" class="detailtext" contenteditable="true">{if isset($error.INPUT)}{$error.INPUT.detail_en.value|escape}{/if}</textarea>
+{literal}<script type="text/javascript">var editor = CKEDITOR.replace('detail_en');</script>{/literal} -->
+{if $fieldList}
+<br /><h2>{$locale->msg('list_custom_field')}</h2>
+{foreach key=no from=$fieldList item=field}
+{if isset($error.INPUT)}
+{assign var=field_name value=$field->getName()}
+{$field->displayHTML($error.INPUT.$field_name.value)}
+{else}
+{$field->displayHTML('')}
+{/if}
+{/foreach}
+{/if}
+</div>
+</div>
+<p>&nbsp;</p>
+<p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="ads" />
+<input type="hidden" name="mod" value="add" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="submit" value="{$locale->msg('button_submit')}" title="{$locale->msg('button_submit')}" name="btnSubmit" />
+<input type="reset" value="{$locale->msg('button_reset')}" title="{$locale->msg('button_reset')}" name="btnReset" />
+<input type="button" onClick="javascript:formSubmit('formAdd','list','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+</p>
+</fieldset>
+</form>
+</div>
+</div>

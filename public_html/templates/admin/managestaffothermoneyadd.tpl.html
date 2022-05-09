@@ -1,0 +1,78 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+
+{if $error}
+	{if $error.invalid || $error.message}
+	{assign var=input value=$error.INPUT}
+	<div class="errorBox">
+		<h2>{$locale->msg('error_notes')}:</h2>
+		<ul class="listStyle">
+			{foreach from=$input item=field}
+				{if $field.error}<li>{$field.message}</li>{/if}
+			{/foreach}
+			<li>{$error.message}</li>
+		</ul>
+	</div>
+	{/if}
+{/if}
+
+
+<!--			<h1 style="color:red">Phần này đang có lỗi, vui lòng không sử dụng</h1>-->
+<div class="formContent">
+	<h1>Thêm mới khoản giảm trừ khác</h1>
+	{if $authUser->getType() == 3 || $authUser->getType() == 18}
+
+	<form action="/{$aScript}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data">
+		<fieldset>
+			
+			<!-- Tìm kiếm nhân viên -->
+			<p {if $error.INPUT.id_angt.error eq 1}class="errormsg"{/if}><label for="gioithieu">*Tìm kiếm nhân viên:</label>
+      <input type="text" value="{if isset($error.INPUT)}{$error.INPUT.id_angt.value}{/if}" name="gioithieu" id="gioithieu" class="medium" autocomplete="off" /><i>*Search ít nhất 3 kí tự</i></p>
+      <input type="hidden" value="{if isset($error.INPUT)}{$error.INPUT.id_angt.value}{/if}" name="id_angt" id="id_angt" class="medium"/>
+			<div id="result-box"></div>
+
+			<div style="padding-bottom: 1rem;" {if $error.INPUT.money.error eq 1}class="errormsg"{/if}>
+				<p style="margin-bottom: 0;">
+					<label for="money">*Khoản giảm trừ khác:</label>
+					<input type="text" id="money" name="money" value="{if $error}{$error.INPUT.money.value}{/if}" autocomplete="off" class="medium" />
+				</p>
+			</div>
+
+				<div style="padding-bottom: 1rem;">
+				<p style="margin-bottom: 0;">
+					<label for="date_othermoney">*{$locale->msg('salary_period')}:</label>
+					<select id="date_othermoney" name="date_othermoney">
+						{assign var=current_date value=$smarty.now|date_format:"%Y-%m-%d"}
+						{assign var=current_day value=$current_date|date_format:"%d"}
+						
+						{for $i=0 to 1}
+							{if $current_day gt 27}
+								{assign var=num value=28*{$i}}
+								{assign var=current_month_year value="{$current_date} +{$num} days"|date_format:"%Y-%m"}
+								{assign var=after_date value="{$current_date} +{$num} days"|date_format:"%Y-%m-28"}
+							{else}
+								{assign var=current_month_year value="{$current_date} +{$i} months"|date_format:"%Y-%m"}
+								{assign var=after_date value="{$current_date} +{$i} months"|date_format:"%Y-%m-%d"}
+							{/if}
+							
+							<option value="{$after_date}" {if $error}{if $after_date eq $error.INPUT.date_othermoney.value}selected{/if}{/if}>{$current_month_year}</option>
+						{/for}
+					</select>
+				</p>
+			</div>
+			<p class="btn">
+				<input type="hidden" name="op" value="manage" />
+				<input type="hidden" name="act" value="staff" />
+				<input type="hidden" name="mod" value="othermoneyadd" />
+				<input type="hidden" name="doo" value="submit" />
+				<input type="hidden" name="lang" value="{$lang}" />
+				<input type="submit" value="Lưu" title="Lưu" name="btnSubmit" />
+				<input type="button" onclick="javascript:formSubmit('formAdd','timeoff','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+			</p>
+		</fieldset>
+	</form>
+
+	{/if}
+
+</div>
+</div>

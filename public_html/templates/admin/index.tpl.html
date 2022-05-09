@@ -1,0 +1,42 @@
+{include file="$userTemplate/coreheader.tpl.html" title=site-header}
+
+<div id="main">
+{include file="$userTemplate/coreleft.tpl.html" title=site-top-menu}
+
+<div id="content">
+{include file="$userTemplate/corenavigation.tpl.html" title=navigation-bar}
+<div class="innerContent">
+<div class="icons">
+<ul>
+ <!-- {if $authUser->getType()==3 || $authUser->getType()==4}
+<li><p><a href="/{$aScript}?op=manage&act=product" title="Sản phẩm/ Dịch vụ"><img alt="" src="templates/admin/images/icon_03.png" width="80" height="80" /><br />Sản phẩm/ Dịch vụ</a></p></li>
+{/if}  -->
+{if $authUser->getType()==3 || $authUser->getType()==4 || $authUser->getType()==1}
+<!-- <li><p><a href="/{$aScript}?op=manage&act=quotes" title="Báo giá"><img alt="" src="templates/admin/images/icon_13.png" width="80" height="80" /><br />Báo giá</a></p></li> -->
+<li><p><a href="/{$aScript}?op=manage&act=customer" title="{$locale->msg('customer_data')}"><img alt="" src="templates/admin/images/icon_02.png" width="80" height="80" /><br />{$locale->msg('customer_data')}</a></p></li>
+<!--  <li><p><a href="/{$aScript}?op=manage&act=groups" title="{$locale->msg('customer_group')}"><img alt="" src="templates/admin/images/icon_10.png" width="80" height="80" /><br />{$locale->msg('customer_group')}</a></p></li> -->
+{/if} 
+<!-- {if $authUser->getType()!=0}
+<li><p><a href="/{$aScript}?op=manage&act=document-type" title="{$locale->msg('type_voucher')}"><img alt="" src="templates/admin/images/icon_04.png" width="80" height="80" /><br />{$locale->msg('type_voucher')}</a></p></li>
+{/if} -->
+<!-- <li><p><a href="/{$aScript}?op=manage&act=order" title="{$locale->msg('manage_order')}"><img alt="" src="templates/admin/images/icon_01.png" width="80" height="80" /><br />{$locale->msg('manage_order')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=customer" title="{$locale->msg('manage_customer')}"><img alt="" src="templates/admin/images/icon_02.png" width="80" height="80" /><br />{$locale->msg('manage_customer')}</a></p></li>
+
+ <li><p><a href="/{$aScript}?op=manage&act=static" title="{$locale->msg('customer_group')}"><img alt="" src="templates/admin/images/icon_10.png" width="80" height="80" /><br />{$locale->msg('customer_group')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=menu" title="{$locale->msg('web_menu')}"><img alt="" src="templates/admin/images/icon_06.png" width="80" height="80" /><br />&nbsp;{$locale->msg('web_menu')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=ads" title="{$locale->msg('ads')}"><img alt="" src="templates/admin/images/icon_07.png" width="80" height="80" /><br />{$locale->msg('ads')}</a></p></li> 
+<li><p><a href="/{$aScript}?op=manage&act=gallery" title="{$locale->msg('gallery')}"><img alt="" src="templates/admin/images/icon_08.png" width="80" height="80" /><br />{$locale->msg('gallery')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=support" title="{$locale->msg('support')}"><img alt="" src="templates/admin/images/icon_11.png" width="80" height="80" /><br />{$locale->msg('support')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=comment" title="{$locale->msg('comment')}"><img alt="" src="templates/admin/images/icon_12.png" width="80" height="80" /><br />{$locale->msg('comment')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=poll" title="{$locale->msg('manage_poll')}"><img alt="" src="templates/admin/images/icon_13.png" width="80" height="80" /><br />{$locale->msg('manage_poll')}</a></p></li>
+<li><p><a href="/{$aScript}?op=manage&act=weblink" title="{$locale->msg('manage_weblink')}"><img alt="" src="templates/admin/images/icon_14.png" width="80" height="80" /><br /> &nbsp;{$locale->msg('manage_weblink')}</a></p></li>
+
+<li><p><a href="/{$aScript}?op=system" title="{$locale->msg('system')}"><img alt="" src="templates/admin/images/icon_9.png" width="80" height="80" /><br />{$locale->msg('system')}</a></p></li>   
+<li class="last"><p><a target="_blank" href="/" title="Trợ giúp"><img alt="" src="templates/admin/images/icon_11.png" width="80" height="80" /><br />Trợ giúp</a></p></li> -->
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+{include file="$userTemplate/corefooter.tpl.html" title=site-footer}

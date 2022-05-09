@@ -1,0 +1,98 @@
+{include file='head.tpl.html' title='site-head'}
+
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--color header__bar--2">
+          {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main news">
+        {if $imageNewsHeader}
+        <div class="image__zoom__block">
+          <img src="/upload/1/resources/l_{$imageNewsHeader->getProperty('logo')}" alt="news cover" class="news__cover image__zoom--toggle" />
+        </div>
+        {/if}
+        <div class="grid wide">
+          <!-- <div class="lazy">
+            <div class="news__list-page" data-effect="slide-right">
+              <ul class="list-page">
+                {if $topNav}
+                {foreach from=$topNav item=item}
+                <li>
+                    <a href="{$item.url}">{$item.name}</a>
+                </li>
+                {/foreach}
+                {/if}
+              </ul>
+            </div>
+          </div> -->
+          <div class="detail-new">
+            <div class="lazy">
+              <div data-effect="slide-right">
+                <h1 class="detail-new__heading">{$itemArticle->getTitle({$lang})}</h1>
+                <div class="detail-new__date">{$itemArticle->getDateCreated()|date_format:"d-m-Y"}</div>
+              </div>
+            </div>
+            <div class="detail-new__body lazy" id="alt_img">
+              {$itemArticle->getDetails({$lang})}
+            </div>
+            <div class="detail-new__block">
+              <a class="about__slider__link about__slider__link--no detail-new__link no-popup-form lazy">
+                <div data-effect="slide-left">
+                	{if $lang =="vn"}
+                  		<span>{$itemArticle->getProperty('custom_text_input_vn')}</span>
+                	{else}
+                  		<span>{$itemArticle->getProperty('custom_text_input_en')}</span>
+                	{/if}
+                </div>
+                <div style="display: inherit;" data-effect="slide-right">
+                  <img src="/{$templatePath}/{$userTemplate}/img/planeicon.png" alt="image">
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="news__list detail-new__list lazy">
+            <div data-effect="slide-right">
+              <div class="news__heading news__heading--no">{if $titleCateArticle}{$titleCateArticle}{/if}</div>
+            </div>
+            <div class="row" data-effect="slide-left">
+              {if $listNews}
+              {foreach from=$listNews item=itemNewsRandom}
+              <div class="col l-4 m-12 c-12">
+                <div class="news__item">
+                  <a href="/{$lang}/{$itemNewsRandom->getSlug({$lang})}-{$itemNewsRandom->getId()}" class="news__item__image" >
+                    <img src="/upload/1/articles/l_{$itemNewsRandom->getProperty('avatar')}" alt="image">
+                  </a>
+                  <div class="news__item__body">
+                    <a href="/{$lang}/{$itemNewsRandom->getSlug({$lang})}-{$itemNewsRandom->getId()}" class="news__item__title">{$itemNewsRandom->getTitle({$lang})}</a>
+                    <div class="news__item__date">{$itemNewsRandom->getDateCreated()|date_format:"d-m-Y"}</div>
+                    <div class="news__item__content">
+                      {$itemNewsRandom->getSapo({$lang})}
+                    </div>
+                    <a href="/{$lang}/{$itemNewsRandom->getSlug({$lang})}-{$itemNewsRandom->getId()}" class="news__item__link">{$locale->msg('see_more')}</a>
+                  </div>
+                </div>
+              </div>
+              {/foreach}
+              {/if}
+            </div>
+            <a href="{if $slugCateArticle}{$slugCateArticle}{/if}" class="news__more">{$locale->msg('see_more')}</a>
+          </div>
+        </div>
+        <div class="about__slider__popup plane-form__container">
+          <i class="fas fa-times"></i>
+          <form id="plane-form" class="plane-form">
+            {include file='form.tpl.html' title='site-form'}
+          </form>
+        </div>
+      </main>
+     
+      {include file='footer-info.tpl.html' title='site-footerinfo'}
+    </div>
+    {include file='footer.tpl.html' title='site-footer'}

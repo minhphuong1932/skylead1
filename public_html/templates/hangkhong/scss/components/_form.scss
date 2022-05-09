@@ -1,0 +1,152 @@
+.plane-form{
+    margin: auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    &__container{
+        background-color: $secondary-color;
+        height: 100vh !important;
+        display: flex !important;
+    }
+    &__block{
+        font-size: 4.8rem;
+        font-family: mon-regular;
+        color: $white-color;
+        line-height: 2;
+        @include responsive{
+            font-size: 2.5vw;
+        }
+    }
+    &__group{
+        position: relative;
+        label{
+            text-decoration: underline;
+            cursor: pointer;
+            transition: all linear 0.3s;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+    &__popup{
+        display: inline-flex;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%) scale(0);
+        background-color: $white-color;
+        z-index: 1;
+
+        box-shadow: $shadow-box;
+
+        opacity: 0;
+        transition: all linear 0.3s;
+        &--toggle{
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+        input{
+            flex: 1;
+
+            border: 0;
+            outline: 0;
+            background-color: transparent;
+            font-family: mon-bold;
+            color: $secondary-color;
+            font-size: 2.4rem;
+            margin-left: 24px;
+            border-bottom: 1px solid $secondary-color;
+            @include responsive{
+                font-size: 1.25vw;
+                margin-left: 1.25vw;
+            }
+            &::placeholder{
+                font-family: mon-bold;
+                color: $secondary-color;
+                font-size: 2.4rem;
+                @include responsive{
+                    font-size: 1.25vw;
+                }
+            }
+        }
+        .error{
+            border-color: red;
+            &::placeholder{
+                color: red;
+            }
+        }
+        i{
+            font-size: 4rem;
+            width: 90px;
+            height: 90px;
+
+            background-color: $secondary-color;
+            border-bottom-left-radius: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+            @include responsive{
+                width: 4.6875vw;
+                height: 4.6875vw;
+                font-size: 2.08vw;
+            }
+        }
+    }
+    &__message{
+        color: red;
+        position: absolute;
+        bottom: 2px;
+        left: 24px;
+        font-size: 1.2rem;
+        @include responsive{
+            font-size: 0.625vw;
+        }
+    }
+    &__submit{
+        background-color: $white-color;
+        color: $secondary-color;
+        font-size: 3.2rem;
+        font-weight: bold;
+        height: 80px;
+        width: 280px;
+
+        margin: 48px;
+
+        cursor: pointer;
+        transition: all linear 0.3s;
+
+        border: 0;
+        outline: 0;
+        @include responsive{
+            font-size: 1.6vw;
+            height: 4.16vw;
+            width: 14.58vw;
+            margin: 2.5vw;
+        }
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+#plane-phone::-webkit-outer-spin-button,
+#plane-phone::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#plane-phone[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.input-success{
+    color: $primary-color;
+}
+.input-failed{
+    color: $red-color;
+}

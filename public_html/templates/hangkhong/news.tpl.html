@@ -1,0 +1,164 @@
+{include file='head.tpl.html' title='site-head'}
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header ">
+        <div class="header__bar header__bar--color header__bar--2">
+            {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main news">
+        {if $imageNewsHeader}
+        <div class="lazy image__zoom__block">
+          <img src="/upload/1/resources/l_{$imageNewsHeader->getProperty('logo')}" alt="news cover" class="news__cover image__zoom--toggle" />
+        </div>
+       
+        {/if}
+        <div class="grid wide">
+          <div class="lazy">
+            <div class="news__list-page" data-effect="slide-right"> 
+              <ul class="list-page">
+                {if $topNav}
+                {foreach from=$topNav item=item}
+                <li>
+                    <a href="{$item.url}">{$item.name}</a>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+            </div>
+          </div>
+        </div>
+        <div class="news__container lazy">
+          <div>
+            <div class="news__slider1">
+              <div class="news__slider1__for">
+                {if $slideNews}
+                {foreach from=$slideNews item=itemSlideNews}
+                    <div class="news__slider1__for__slide" style="background-image: url(/upload/1/articles/l_{$itemSlideNews->getProperty('avatar')})"></div>
+                {/foreach}
+                {/if}
+              </div>
+              <div class="news__slider1__nav">
+                {if $slideNews}
+                {foreach from=$slideNews item=itemSlideNews}
+                <div class="news__slider1__nav__slide">
+                <a href="/{$lang}/{$itemSlideNews->getSlug({$lang})}-{$itemSlideNews->getId()}" class="news__slider1__nav__title">{$itemSlideNews->getTitle({$lang})}</a>
+                <div class="news__slider1__nav__content">
+                    {$itemSlideNews->getSapo({$lang})}
+                </div>
+                </div>
+                {/foreach}
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        {if $finalData}
+        {foreach from=$finalData item=itemCate}
+        <div class="grid wide">
+          <div class="news__list lazy">
+            <div data-effect="slide-right">
+              <div class="news__heading news__heading--no">{$itemCate['name']}</div>
+            </div>
+            <div class="row" data-effect="slide-left">
+              {foreach from=$itemCate['listArticle'] item=itemArticle}
+              <div class="col l-4 m-12 c-12">
+                <div class="news__item">
+                  <a href="/{$itemArticle['slug']}" class="news__item__image">
+                    <img src="{$itemArticle['avatar']}" alt="image">
+                  </a>
+                  <div class="news__item__body">
+                  <a href="/{$itemArticle['slug']}" class="news__item__title">{$itemArticle['name']}</a>
+                    <div class="news__item__date">{$itemArticle['date_created']|date_format:"d-m-Y"} </div>
+                    <div class="news__item__content">
+                      {$itemArticle['sapo']} 
+                  </div>
+                    <a href="/{$itemArticle['slug']}" class="news__item__link">{$locale->msg('see_more')}</a>
+                  </div>
+                </div>
+              </div> 
+            {/foreach}
+            </div>
+            <a href="{$itemCate['url']}" class="news__more">{$locale->msg('see_more')}</a>
+          </div>
+        </div>
+           {/foreach}
+        {/if}
+
+        <div class="news__container">
+          <div class="news__slider2 lazy">
+            <div data-effect="slide-right">
+              <div class="news__heading">{$locale->msg('new_course')}</div>
+            </div>
+            <div data-effect="slide-left">
+              <div class="news__slider2__block">
+                <div class="news__slider2__for">
+                  {if $slideNewsCourse}
+                  {foreach from=$slideNewsCourse item=itemCourse}
+                  <div class="news__slider2__for__slide" style="background-image: url(/upload/1/articles/l_{$itemCourse->getProperty('avatar')})"></div>
+                  {/foreach}
+                  {/if}
+                </div>
+                <div class="news__slider2__nav">
+                  {if $slideNewsCourse}
+                  {foreach from=$slideNewsCourse item=itemCourse}
+                  <div class="news__slider2__nav__slide">
+                    <a href="/{$lang}/{$itemCourse->getSlug({$lang})}-{$itemCourse->getId()}" class="news__slider2__nav__title">{$itemCourse->getTitle({$lang})}</a>
+                    <div class="news__slider2__nav__content">
+                      {$itemCourse->getSapo({$lang})}
+                    </div>
+                  </div>
+                  {/foreach}
+                  {/if}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+            
+        <div class="grid wide">
+          {if $titleCateNewsDay}
+          {foreach from=$titleCateNewsDay item=itemCateNewsDay}
+          <div class="news__list lazy">
+            <div data-effect="slide-right">
+              <div class="news__heading news__heading--no">{$itemCateNewsDay->getName({$lang})}</div>
+            </div>
+            <div class="row" data-effect="slide-left">
+            {if $newsDay}
+            {foreach from=$newsDay item=itemNewsDay}
+              <div class="col l-4 m-12 c-12">
+                <div class="news__item">
+                  <a href="/{$lang}/{$itemNewsDay->getSlug({$lang})}-{$itemNewsDay->getId()}" class="news__item__image">
+                    <img src="/upload/1/articles/l_{$itemNewsDay->getProperty('avatar')}" alt="image">
+                  </a>
+                  <div class="news__item__body">
+                    <a href="/{$lang}/{$itemNewsDay->getSlug({$lang})}-{$itemNewsDay->getId()}" class="news__item__title">{$itemNewsDay->getTitle({$lang})}</a>
+                    <div class="news__item__content">
+                      {$itemNewsDay->getSapo({$lang})}
+                    </div>
+                    <a href="/{$lang}/{$itemNewsDay->getSlug({$lang})}-{$itemNewsDay->getId()}" class="news__item__link">{$locale->msg('see_more')}</a></div>
+                </div>
+              </div>
+            {/foreach}
+            {/if}
+          </div>
+
+            <a href="/{$lang}/{$itemCateNewsDay->getSlug({$lang})}-{$itemCateNewsDay->getId()}" class="news__more">{$locale->msg('see_more')}</a>
+          </div>
+          {/foreach}
+          {/if}
+        </div>
+
+     
+        
+      </main>
+      {include file='footer-info.tpl.html' title='site-footerinfo'}
+    </div>
+{include file='footer.tpl.html' title='site-footer'}
+ 

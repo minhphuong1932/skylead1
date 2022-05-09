@@ -1,0 +1,60 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+
+{if $error}
+	{if $error.invalid || $error.message}
+	{assign var=input value=$error.INPUT}
+	<div class="errorBox">
+		<h2>{$locale->msg('error_notes')}:</h2>
+		<ul class="listStyle">
+			{foreach from=$input item=field}
+				{if $field.error}<li>{$field.message}</li>{/if}
+			{/foreach}
+			<li>{$error.message}</li>
+		</ul>
+	</div>
+	{/if}
+{/if}
+
+<div class="formContent">
+	<h1>{$locale->msg('export_excel')}</h1>
+	{if $authUser->getType() == 3}
+
+	<form action="/{$aScript}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data">
+		<fieldset>
+			<div class="parent_ajax" style="padding-bottom: 10px;">
+				<div style="overflow: hidden;" {if $error.INPUT.user.error eq 1}class="errormsg"{/if}>
+					<label for="distributor_id">{$locale->msg('position')}:</label>
+					<select class="small"  name="user_group" id="user_group">
+					<option value="all" selected="selected">----- Nhóm  -----</option>
+					<option value="1"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 1}selected="selected"{/if}>{$locale->msg('employment')}</option>
+					<option value="2"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 2}selected="selected"{/if}>{$locale->msg('managerment')}</option>
+					{if $authUser->isSiteFounder()|| $authUser->isSiteAdmin()}<option value="3"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 3}selected="selected"{/if}>{$locale->msg('founder')}</option>{/if}
+					{if $authUser->isSiteAdmin()}<option value="4"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 4}selected="selected"{/if}>{$locale->msg('admin')}</option>{/if}
+					<option value="11"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 11}selected="selected"{/if}>{$locale->msg('leader')}</option>
+					<option value="12"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 12}selected="selected"{/if}>{$locale->msg('leader_free')}</option>
+					<option value="13"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 13}selected="selected"{/if}>{$locale->msg('doitruong')}</option>
+					<option value="14"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 14}selected="selected"{/if}>{$locale->msg('tpnv')}</option>
+					</select>
+				</div>	
+				<div id="suggestion-nvul"></div>
+				<div id="result-nvul" class="result-w" style="padding-top: 10px;">
+				</div>
+			</div>
+			
+			<p class="btn">
+				<input type="hidden" name="op" value="manage" />
+				<input type="hidden" name="act" value="staff" />
+				<input type="hidden" name="mod" value="export" />
+				<input type="hidden" name="doo" value="submit" />
+				<input type="hidden" name="lang" value="{$lang}" />
+				<input type="submit" value="Export" title="Export" name="btnSubmit" />
+				<input type="button" onclick="javascript:formSubmit('formAdd','export','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+			</p>
+		</fieldset>
+	</form>
+
+	{/if}
+
+</div>
+</div>

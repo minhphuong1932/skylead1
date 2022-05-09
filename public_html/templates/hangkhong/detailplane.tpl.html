@@ -1,0 +1,114 @@
+{include file='head.tpl.html' title='site-head'}
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    {if $itemArticle}
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--color header__bar--2">
+            {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main news">
+        {if $imageNewsHeader}
+        <div class="image__zoom__block">
+          <img src="/upload/1/resources/l_{$imageNewsHeader->getProperty('logo')}" alt="news cover" class="news__cover image__zoom--toggle" />
+        </div>
+        {/if}
+        <div class="grid wide">
+          <!-- <div class="news__list-page" data-effect="slide-right">
+            <ul class="list-page">
+                {if $topNav}
+                {foreach from=$topNav item=item}
+                <li>
+                    <a href="{$item.url}">{$item.name}</a>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+          </div> -->
+          <div class="detail-new">
+            <div class="lazy">
+              <div data-effect="slide-right">
+                <h1 class="detail-new__heading">{$itemArticle->getTitle({$lang})}</h1>
+                <div class="detail-new__date">{$itemArticle->getDateCreated()|date_format:"d-m-Y"}</div>
+              </div>
+            </div>
+            <div class="detail-new__body lazy">
+                {$itemArticle->getDetails({$lang})}
+            </div>
+          </div>
+          
+          <div class="row lazy">
+            <div class="col l-6 m-6 c-6">
+              <div class="detail-plane">
+              {if $listNewsBack}
+              {foreach from=$listNewsBack item=itemBack}
+              {if $idNext != $idBackSmaller}
+               <a href="/{$lang}/{$itemBack->getSlug({$lang})}-{$itemBack->getId()}" class="detail-plane__block">
+                        <div class="detail-plane__image" style="background-image: url(/upload/1/articles/l_{$itemBack->getProperty('avatar')})"></div>
+                        <div class="detail-plane__nav">{$locale->msg('back')}</div>
+                        <div class="detail-plane__body">
+                        <div class="detail-plane__title">{$itemBack->getTitle({$lang})}</div>
+                        <div class="detail-plane__content">
+                            {$itemBack->getSapo({$lang})}
+                        </div>
+                        </div>
+                    </a>
+                    {else}
+                    <div></div>
+                 {/if}
+                {/foreach}
+                {/if}
+              </div>
+            </div>
+            <div class="col l-6 m-6 c-6">
+              <div class="detail-plane">
+                    {if $listNewsNext}
+                    {foreach from=$listNewsNext item=itemNext}
+                    {if $idNextGreater != $idBack}
+                    <a href="/{$lang}/{$itemNext->getSlug({$lang})}-{$itemNext->getId()}" class="detail-plane__block">
+                      <div class="detail-plane__image" style="background-image: url(/upload/1/articles/l_{$itemNext->getProperty('avatar')})"></div>
+                      <div class="detail-plane__nav detail-plane__nav--2">{$locale->msg('next')}</div>
+                      <div class="detail-plane__body">
+                      <div class="detail-plane__title">{$itemNext->getTitle({$lang})}</div>
+                      <div class="detail-plane__content">
+                                {$itemNext->getSapo({$lang})}
+                      </div>
+                      </div>
+                    </a>
+                    {/if}
+                    {/foreach}
+                    {/if}
+               
+              </div>
+            </div>
+            <div class="col l-6 m-12 c-12">
+              <a style="--link-color: #00A6DF"  href="{if $lang=='vn'}/vn/conduongtrothanhphicong.html#scroll{$idCat}{else}/en/how.html#scroll{$idCat}{/if}" class="detail-plane__link">
+                    <img src="/{$templatePath}/{$userTemplate}/img/iconplaneleft.png" alt="plane icon" />
+                    <span>{$locale->msg('become_a_pilot')}</span>
+                </a>
+            </div>
+            <div class="col l-6 m-12 c-12">
+               <a style="--link-color: #273C8B"  href="#" class="detail-plane__link about__slider__link about__slider__link--no detail-plane__link--2">
+                    <img src="/{$templatePath}/{$userTemplate}//img/planeicon.png" alt="plane icon" />
+                    <span>{$locale->msg('start_journeys')}</span>
+                  </a>
+            </div>
+          </div>
+
+        </div>
+        <div class="about__slider__popup plane-form__container">
+          <i class="fas fa-times"></i>
+          <form id="plane-form" class="plane-form">
+            {include file='form.tpl.html' title='site-form'}
+          </form>
+        </div>
+      </main>
+      {include file='footer-info.tpl.html' title='site-footerinfo'}
+    </div>
+    {/if}
+    {include file='footer.tpl.html' title='site-footer'}

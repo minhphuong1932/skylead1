@@ -1,0 +1,25 @@
+<img src="/{$templatePath}/{$userTemplate}/img/bar.png" alt="bar icon">
+<div class="header__menu" style="background-image: url({$estore->getProperty('background_menuright')});">
+    <i class="fas fa-times"></i>
+    <ul>
+        {if $menuRight}
+        {foreach from=$menuRight item=itemMenuRight}
+            <li>
+            <a class="{$itemMenuRight->getProperty('custom_css')}" href="/{$lang}/{$itemMenuRight->getUrl({$lang})}">
+                {$itemMenuRight->getName({$lang})}
+            </a>
+            </li>
+        {/foreach}
+        {/if}
+            
+    </ul>
+
+    <div class="header__language">
+        <a href="/en/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}" class="{if $lang == 'en'}active{/if}">
+            <img src="https://cdn.pixabay.com/photo/2012/04/18/19/53/flag-37712_960_720.png" alt="usa">
+        </a>
+        <a href="/vn/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}"  class="{if $lang == 'vn'}active{/if}">
+            <img src="https://cdn.pixabay.com/photo/2012/04/10/23/04/vietnam-26834_640.png" alt="vn">
+        </a>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+    <input hidden class="lang" value="{$lang}">
+    <div class="plane-form__block">
+      {$locale->msg('text_form1')}
+      <span class="plane-form__group">
+        <label for="plane-name">{$locale->msg('name')},</label>
+        <span class="plane-form__popup">
+          <input placeholder="{$locale->msg('name')}" type="text" name="plane-name" id="plane-name">
+          <i class="fas fa-chevron-right"></i>
+          <span class="plane-form__message"></span>
+        </span>
+      </span> 
+      <span class="plane-form__group">
+        <label for="plane-phone">{$locale->msg('tel')}</label>
+        <span class="plane-form__popup">
+          <input placeholder="{$locale->msg('tel')}" type="number" name="plane-phone" id="plane-phone">
+          <i class="fas fa-chevron-right"></i>
+          <span class="plane-form__message"></span>
+        </span>
+      </span>      
+      {$locale->msg('text_form2')}
+      <span class="plane-form__group">
+        <label for="plane-email">email.</label>
+        <span class="plane-form__popup plane-form__popup--2">
+          <input class="last-input" placeholder="email" type="email" name="plane-email" id="plane-email">
+          <i class="fas fa-chevron-right"></i>
+          <span class="plane-form__message"></span>
+        </span>
+      </span> <br>
+      {$locale->msg('text_form3')}
+    </div>
+    <input class="plane-form__submit" onclick="saveInformation()" type="submit" value="{$locale->msg('send')}">
+

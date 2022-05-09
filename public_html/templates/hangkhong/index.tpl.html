@@ -1,0 +1,353 @@
+{include file='head.tpl.html' title='site-head'}
+
+<body>
+    <!-- <div class="loading">
+    <img src="{$estore->getProperty('admin_logo')}" alt="logo" />
+  </div> -->
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <!--  {if $checkShow == 0}
+  <div class="popup__language">
+    <div class="popup__language__block">
+      <div class="popup__language__heading">Please choose your language!</div>
+      <div class="popup__language__heading">Xin hãy lựa chọn ngôn ngữ!</div>
+      <div class="header__language header__language__popup">
+        <a
+          href="/en/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}"
+          class="{if $lang == 'en'}active{/if}"
+        >
+          <img
+            src="https://cdn.pixabay.com/photo/2012/04/18/19/53/flag-37712_960_720.png"
+            alt="usa"
+          />
+        </a>
+        <a
+          href="/vn/{if $slug}{if $id}{if $page}{$slug}-{$id}&page={$page}{else}{$slug}-{$id}{/if}{else}{if $page}{$slug}&page={$page}{else}{$slug}.html{/if}{/if}{else}index.html{/if}"
+          class="{if $lang == 'vn'}active{/if}"
+        >
+          <img
+            src="https://cdn.pixabay.com/photo/2012/04/10/23/04/vietnam-26834_640.png"
+            alt="vn"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+  {/if} -->
+  {if $checkout == 0}
+    <div class="plane__loading">
+        <div class="plane__loading__block">
+            <div class="plane__loading__effect">
+                <div class="plane__loading__khach">
+                </div>
+                <img src="/templates/hangkhong/img/airplane1.png" alt="may bay" class="plane__loading__plane">
+            </div>
+            <div class="plane__loading__progress">
+                <div class="plane__loading__progress__percent"></div>
+            </div>
+            <div class="plane__loading__boarding">
+                boarding
+            </div>
+            <div class="plane__loading__fly">Cất cánh</div>
+        </div>
+    </div>
+    {/if}
+    <!-- <div class="popup__continue__block">
+    <div class="popup__continue">
+      <p>Enable audio?</p>
+      <div>
+        <button class="btn__yes">YES</button>
+        <button class="btn__no">NO</button>
+      </div>
+    </div>
+  </div> -->
+
+    <div class="wrapper">
+        <header class="header">
+            {include file='menu-top.tpl.html' title='site-menu-top'}
+            <div class="header__bar">
+                {include file='menu-right.tpl.html' title='site-menu-right'}
+            </div>
+        </header>
+
+        <div class="all-sound">
+            {if $mp3Planesss} {foreach from=$mp3Planesss item=item}
+            <audio controls {if $item->getPosition()==2}loop{/if} class="sound{$item->getPosition()}">
+        <source
+          src="/upload/1/resources/{$item->getProperty('logo')}"
+          type="audio/ogg"
+        />
+        <source
+          src="/upload/1/resources/{$item->getProperty('logo')}"
+          type="audio/mpeg"
+        />
+      </audio> {/foreach} {/if}
+            <!-- <audio  muted class="sound1">
+          <source
+          src="/templates/hangkhong/img/Flyingeffect.wav"
+          type="audio/mpeg"
+        />
+      </audio>
+      <audio  muted loop class="sound2">
+          <source
+          src="/templates/hangkhong/img/sound1.mp3"
+          type="audio/mpeg"
+        />
+      </audio> -->
+
+        </div>
+        <!--     {if $checkShow == 0 || $checkShow == 1}
+    <div class="plane__start">
+      <video class="set-video" playsinline muted>
+        {if $videoFlyPlane}
+        <source
+          src="/upload/1/resources/{$videoFlyPlane->getProperty('logo')}"
+          type="video/mp4"
+        />
+        {/if}
+      </video>
+      {if $lang == "vn"}
+      <img
+        class="plane__start__gif"
+        src="/{$templatePath}/{$userTemplate}/img/Untitled-1.gif"
+        alt="gif scroll"
+      />
+      {else}
+      <img
+        class="plane__start__gif"
+        src="/{$templatePath}/{$userTemplate}/img/scroll-to-fly.gif"
+        alt="gif scroll"
+      />
+      {/if}
+    </div>
+    {/if} -->
+
+        <main class="main plane">
+            <!-- slide 1 -->
+            <div data-slide="1" class="plane-slide plane__fly">
+                <div class="plane__fly__volume">
+                    <i class="fas fa-volume-up volume--on active"></i>
+                    <i class="fas fa-volume-mute volume--mute"></i>
+                </div>
+                <div class="plane__fly__theme">
+                    {if $videoPlanesss} {foreach from=$videoPlanesss key=val item=imagePlane}
+                    <div class="plane__fly__block {if $val==0}active{/if}">
+                        <video class="plane__fly__video set-video" playsinline muted loop="loop">
+              <source
+                src="/upload/1/resources/{$imagePlane->getProperty('logo')}"
+                type="video/mp4"
+              />
+            </video>
+                        <img src="/upload/1/resources/l_{$imagePlane->getProperty('the_plane')}" alt="1FN.png" class="plane__fly__image" />
+                    </div>
+                    {/foreach} {/if}
+                </div>
+                <div class="plane__fly__scroll" id="plane__fly__scroll">
+                    <ul class="plane__fly__ul">
+                        {if $videoPlanesss} {foreach from=$videoPlanesss key=val item=itemVideo}
+                        <!-- text loại hình -->
+                        {if $itemVideo->getProperty('custom_option_text_plane') && $itemVideo->getProperty('custom_option_text_plane')==2} {if $lang =="vn"}
+                        <li>
+                            <span class="plane__fly__item">
+                <img src="{$itemVideo->getProperty('custom_img_plane_text')}" data-mobile="{$itemVideo->getProperty('custom_custom_img_plane_text_mb_vn')}" alt="png">
+              </span>
+                        </li>
+                        {else}
+                        <li>
+                            <span class="plane__fly__item">
+                <img src="{$itemVideo->getProperty('custom_custom_img_plane_text_en')}" data-mobile="{$itemVideo->getProperty('custom_custom_img_plane_text_mb_en')}" alt="png">
+               </span>
+                        </li>
+                        {/if}
+                        <!-- mobie -->
+                        <!-- {if $lang =="vn"}
+            	<img src="{$itemVideo->getProperty('custom_custom_img_plane_text_mb_vn')}" data-mobile="link ảnh mobile" alt="">
+	        
+           	{else}
+            	<img src="{$itemVideo->getProperty('custom_custom_img_plane_text_mb_en')}" data-mobile="link ảnh mobile" alt="">
+           	{/if} -->
+                        <!-- text loại chữ -->
+                        {else} {if $lang =="vn"}
+                        <li>
+                            <span class="plane__fly__item">{$itemVideo->getProperty('custom_content_ads')}
+              </span>
+                        </li>
+                        {else}
+                        <li>
+                            <span class="plane__fly__item">{$itemVideo->getProperty('custom_en_sapo')}
+              </span>
+                        </li>
+                        {/if} {/if} {/foreach} {/if}
+                    </ul>
+                </div>
+                {if $lang =="vn"}
+                <img class="plane__fly__gif" src="/{$templatePath}/{$userTemplate}/img/scrollgif.gif" alt="gif scroll" data-gifmobile="/{$templatePath}/{$userTemplate}/img/viet.gif" /> {else}
+                <img class="plane__fly__gif" src="/{$templatePath}/{$userTemplate}/img/fly.gif" alt="gif scroll" data-gifmobile="/{$templatePath}/{$userTemplate}/img/english.gif" /> {/if}
+            </div>
+            <!-- slide 2 -->
+            {if $becomeAPilot}
+            <div data-slide="2" class="plane-slide plane__video scroll-1 image__zoom__block">
+                <div class="plane__video__bg image__zoom" style="
+            background-image: url(/upload/1/resources/l_{$becomeAPilot->getProperty(
+                'the_plane'
+              )});
+          "></div>
+                {if $lang =="vn"}
+                <div class="plane__video__heading">{$estore->getProperty('custom_change_text_home2')}</div>
+                {else}
+                <div class="plane__video__heading">{$estore->getProperty('custom_change_text_home2_en')}</div>
+                {/if}
+                <div class="plane__video__popup">
+                    <img src="/{$templatePath}/{$userTemplate}/img/Vector1.png" alt="image" class="plane__video__play" data-link="{$becomeAPilot->getProperty('custom_link_video')}" />
+                    <div id="plane__video__popup-player1">
+                    </div>
+                    <i class="fas fa-times plane__video__popup__icon"></i>
+                </div>
+                <a class="plane__video__link" href="{if $lang =='vn'}/{$lang}/conduongtrothanhphicong.html{else}/{$lang}/how.html{/if}">{$locale->msg('see_more')}</a
+        >
+        {if $lang =="vn"}
+        <img
+          class="plane__fly__gif"
+          src="/{$templatePath}/{$userTemplate}/img/z2901156658748_6b72a85dabf4cc8d4070d48d294fd850.gif"
+          alt="gif scroll"
+          data-gifmobile="/{$templatePath}/{$userTemplate}/img/viet.gif"
+        />
+        {else}
+        <img
+          class="plane__fly__gif"
+          src="/{$templatePath}/{$userTemplate}/img/scroll-down.gif"
+          alt="gif scroll"
+          data-gifmobile="/{$templatePath}/{$userTemplate}/img/english.gif"
+        />
+        {/if}
+      </div>
+      {/if} {if $about}
+      <!-- slide 3 -->
+      <div
+        data-slide="3"
+        class="plane-slide plane__video scroll-2 image__zoom__block"
+      >
+        <div
+          class="plane__video__bg image__zoom"
+          style="
+            background-image: url(/upload/1/resources/l_{$about->getProperty(
+                'the_plane'
+              )});
+          "
+        ></div>
+        {if $lang =="vn"}
+        <div class="plane__video__heading">{$estore->getProperty('custom_change_text_home')}</div>
+        {else}
+        <div class="plane__video__heading">{$estore->getProperty('custom_change_text_home_en')}</div>
+        {/if}
+      
+        <div class="plane__video__popup">
+          <img
+            src="/{$templatePath}/{$userTemplate}/img/Vector1.png"
+            alt="image"
+            class="plane__video__play"
+            data-link="{$about->getProperty('custom_link_video')}"
+          />
+          <div id="plane__video__popup-player2">
+          </div>
+          <i class="fas fa-times plane__video__popup__icon"></i>
+        </div>
+        <a
+          class="plane__video__link"
+          href="{if $lang =='vn'}/{$lang}/vechungtoi.html{else}/{$lang}/about.html{/if}"
+          >{$locale->msg('see_more')}</a
+        >
+
+        {if $lang =="vn"}
+        <img
+          class="plane__fly__gif"
+          src="/{$templatePath}/{$userTemplate}/img/z2901156658748_6b72a85dabf4cc8d4070d48d294fd850.gif"
+          alt="gif scroll"
+          data-gifmobile="/{$templatePath}/{$userTemplate}/img/viet.gif"
+        />
+        {else}
+        <img
+          class="plane__fly__gif"
+          src="/{$templatePath}/{$userTemplate}/img/scroll-down.gif"
+          alt="gif scroll"
+          data-gifmobile="/{$templatePath}/{$userTemplate}/img/english.gif"
+        />
+        {/if}
+      </div>
+      {/if}
+      <!-- slide 4 -->
+      <div data-slide="4" class="plane-slide plane__bottom">
+        <div class="plane__bottom__slider">
+          {if $slidesss} {foreach from=$slidesss item=itemSlide}
+          <div class="plane__bottom__slide image__zoom__block">
+            <div
+              class="image__zoom"
+              style="
+                background-image: url(/upload/1/articles/l_{$itemSlide->getProperty(
+                    'avatar'
+                  )});
+              "
+            ></div>
+            <img
+              src="/{$templatePath}/{$userTemplate}/img/Subtract.png"
+              alt="image"
+              class="plane__bottom__slide__subtract"
+            />
+            <div class="wrapper--1">
+              <div class="plane__bottom__slide__block">
+                <a
+                  href="/{$lang}/{$itemSlide->getSlug({$lang})}-{$itemSlide->getId()}"
+                  class="plane__bottom__slide__title"
+                  >{$itemSlide->getTitle({$lang})}</a
+                >
+                <div class="plane__bottom__slide__text">
+                  {$itemSlide->getSapo({$lang})}
+                </div>
+              </div>
+            </div>
+          </div>
+          {/foreach} {/if}
+        </div>
+        <div class="wrapper--2">
+          <div class="plane__bottom__nav">
+            {if $slidesss} {foreach from=$slidesss item=itemSlide}
+            <div class="plane__bottom__item__slide">
+              <div class="plane__bottom__item__border"></div>
+              <div class="plane__bottom__item">
+                <div
+                  class="plane__bottom__item__image"
+                  style="
+                    background-image: url(/upload/1/articles/l_{$itemSlide->getProperty(
+                        'avatar'
+                      )});
+                  "
+                ></div>
+                <div class="plane__bottom__item__block">
+                  <a href="/{$lang}/{$itemSlide->getSlug({$lang})}-{$itemSlide->getId()}" class="plane__bottom__item__title">
+                    {$itemSlide->getTitle({$lang})}
+                  </a>
+                <button class="plane__bottom__item__icon">
+                    <i class="fas fa-arrow-circle-right"></i>
+                  </button>
+            </div>
+    </div>
+    </div>
+    {/foreach} {/if}
+    </div>
+    </div>
+    {if $lang =="vn"}
+    <img class="plane__fly__gif plane__fly__gif--2" src="/{$templatePath}/{$userTemplate}/img/z2901156658748_6b72a85dabf4cc8d4070d48d294fd850.gif" alt="gif scroll" data-gifmobile="/{$templatePath}/{$userTemplate}/img/viet.gif" /> {else}
+    <img class="plane__fly__gif plane__fly__gif--2" src="/{$templatePath}/{$userTemplate}/img/scroll-down.gif" alt="gif scroll" data-gifmobile="/{$templatePath}/{$userTemplate}/img/english.gif" /> {/if}
+    </div>
+    <!-- slide 5 -->
+    <div data-slide="5" class="plane-slide plane-form__container">
+        <div class="wrapper--3">
+            <form id="plane-form" class="plane-form">
+                {include file='form.tpl.html' title='site-form'}
+            </form>
+        </div>
+    </div>
+    </main>
+    </div>
+    <input hidden id="showVideo" value="{$showVideo}" /> {include file='footer.tpl.html' title='site-footer'}
+</body>

@@ -1,0 +1,156 @@
+{if $authUser}
+<script>
+	speed=1000;
+	len=40;
+	tid = 0;
+	num=0;
+	clockA = new Array();
+	timeA = new Array();
+	formatA = new Array();
+	dd = new Date();
+	var d,x;
+
+	function doDate()
+	{
+		id = "#studingtimenoti";
+		for (i=0;i<num;i++) {
+			dt = new Date();
+
+			if (timeA[i] != 0) {
+				v1 = Math.round(( dt - timeA[i] )/1000) ;
+				if (formatA[i] == 1)
+		        //clockA[i].date.value = v1;
+		    $(id) = v1;
+		    else if (formatA[i] ==2) {
+		    	sec = v1%60;
+		    	v1 = Math.floor( v1/60);
+		    	min = v1 %60 ;
+		    	hour = Math.floor(v1 / 60);
+		    	if (sec < 10 ) sec = "0"+sec;
+		    	if (min < 10 ) min = "0"+min;
+		    	$(id).val(hour+":"+min+":"+sec) ;
+		    }
+		    else if (formatA[i] ==3) {
+		    	sec = v1%60;
+		    	v1 = Math.floor( v1/60);
+		    	min = v1 %60 ;
+		    	v1 = Math.floor(v1 / 60);
+		    	hour = v1 %24 ;
+		    	day = Math.floor(v1 / 24);
+		    	if (sec < 10 ) sec = "0"+sec;
+		    	if (min < 10 ) min = "0"+min;
+		    	if (hour < 10 ) hour = "0"+hour;
+		    	$(id).val(hour+":"+min+":"+sec);
+		    }
+		    else if (formatA[i] ==4 ) {
+		    	sec = v1%60;
+		    	v1 = Math.floor( v1/60);
+		    	min = v1 %60 ;
+		    	v1 = Math.floor(v1 / 60);
+		    	hour = v1 %24 ;
+		    	day = Math.floor(v1 / 24);
+		    	$(id).val(hour+(hour==1?"hour ":"hours ")+min+(min==1?"min ":"mins ")+sec+(sec==1?"sec ":"secs "));      
+		    }
+		    else
+		    	clockA[i].date.value = "Invalid Format spec";
+		}
+		else
+			clockA[i].date.value = "Countup from when?";
+
+	}
+
+	tid=window.setTimeout('doDate()',speed);
+}
+function start(d,format) {
+	if (d == "now")
+		timeA[num] = new Date();
+	else
+		timeA[num] = new Date(d);
+	formatA[num] = format;
+	if (num == 0)  
+		tid=window.setTimeout('doDate()',speed);
+	num++;
+}
+start('now',2);
+</script>
+
+<div id="nav" class="nav-noti">
+
+	<input type="hidden" name="idCurUs" id="idCurUs" value="{$authUser->getId()}">
+{if $authUser}<p class="datetime">
+	<input type="hidden" id="studingtimenoti" name="studingtimenoti" value="" />
+<a class="notifi">
+{if $authUser->getType()==4 && $notibacluong == 2}
+<i aria-hidden="true" class="fa fa-comment comment3" onclick="ShowNotificationBL(this);"></i>
+<i aria-hidden="true" class="fa fa-comment comment4 hiddendiv" onclick="HidenNotificationBL(this);"></i>
+<span class="badgebl bg-yellow">1</span>
+{/if}
+<i aria-hidden="true" class="fa fa-bell bell1" onclick="ShowNotification(this);"></i>
+<i aria-hidden="true" class="fa fa-bell bell2 hiddendiv" onclick="HidenNotification(this);"></i>
+
+<span class="badge bg-green hiddendiv"></span>
+
+</a>
+{$locale->msg('hello')} <a href="/{$aScript}?op=profile&act=information" title="{$locale->msg('system_profile')}"><strong>{$authUser->getFullname()}</strong></a> ({$authUser->getUsername()}) [{$authUser->getType()}]. [<a href="/{$aScript}?op=logout" title="{$locale->msg('log_out')}">{$locale->msg('log_out')}</a>]</p>
+	{if $listNotification}
+	<div class="notifi-div hiddendiv">
+	<ul class="listNotiul">
+		{foreach key=non from=$listNotification item=itemn}
+	<li class="li-item">
+	  <a onclick="ReadNotification(this);">
+	      {$itemn->getDetails()}
+	  </a>
+	  <input type="hidden" class="linktomove" value="{$itemn->getLink()}">
+	  <input type="hidden" class="idtomove" value="{$itemn->getId()}">
+	</li>
+	{/foreach}
+
+	<li class="marsk-noti">
+	    <a class="a-marsk-noti" href="/admin.php?op=manage&act=article&mod=clearnoti">
+	      Xóa tất cả
+	      <i class="fa fa-angle-right"></i>
+	    </a>
+	</li>
+	</ul> 
+	</div>
+	{/if}
+{/if}
+{if $authUser->getType()==4 && $notibacluong == 2}
+<div class="notifi-divbl hiddendiv">
+	<ul>
+	<li class="li-item">
+	  <a href="/admin.php?op=manage&act=article&mod=addlvlsalary">
+	     Vui lòng tạo thang bảng lương cho năm hiện hành
+	  </a>
+	</li>
+	</ul> 
+</div>
+{/if}
+<ul id="listmenu">
+	{if $topNav}
+<ul class=" fix_breadcrumb" {if $authUser->getType()==1}style="position: absolute;"{/if}>
+{foreach from=$topNav key=name item=url name=nav}
+{if $smarty.foreach.nav.last}<li class="last">{$name}</li>
+{else}<li><a href="{$url}" title="{$name}">{$name}</a></li>
+{/if}
+{/foreach}
+</ul>
+{/if}
+<!-- <li><a href="/{$aScript}?op=dashboard" title="{$locale->msg('dash_board')}">{$locale->msg('dash_board')}</a></li> -->
+<!-- <li><a href="/{$aScript}?op=manage" title="{$locale->msg('manage_website')}">{$locale->msg('manage_original_data')}</a></li> -->
+<!-- {if $authUser->getType()!=0}
+<li><a href="/{$aScript}?op=system" title="{$locale->msg('system')}">{$locale->msg('system')}</a></li>
+{/if} -->
+
+</ul>
+</div>
+{else}
+<div id="nav">
+<ul id="listmenu">
+<li><a href="/" title="{$locale->msg('home_page')}">{$locale->msg('home_page')}</a></li>
+</ul>
+</div>
+{/if}
+<script type="text/javascript">
+		var interval = setInterval(function () { LoadNotification(); }, 10000);
+</script>

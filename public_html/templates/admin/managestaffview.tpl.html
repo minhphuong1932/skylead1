@@ -1,0 +1,320 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+<!-- <div class="contType"><h2>{$locale->msg('notes')}:</h2>{$locale->msg('notes_user')}</div> -->
+{if $error}
+{if $error.invalid || $error.message}
+{assign var=input value=$error.INPUT}
+<div class="errorBox">
+<!-- <h2>{$locale->msg('error_notes')}:</h2> -->
+<ul class="listStyle">
+{foreach from=$input item=field}
+{if $field.error}<li>{$field.message}</li>{/if}
+{/foreach}
+<li>{$error.message}</li>
+</ul>
+</div>
+{/if}
+{/if}
+<div class="formContent">
+<h1>Xem thông tin nhân viên</h1>
+{if $validItem}
+{if $item}
+<!-- Load user info -->
+<form action="/{$aScript}" method="post" name="formEdit" id="formEdit" class="inf_imp" enctype="multipart/form-data">
+{assign var=avatar value=$item->getProperty('avatar')}
+{if $avatar}
+<div class="listPhoto avatar_view">
+<ul>
+<li><img src="/upload/{$storeId}/users/a_{$avatar}" width="100" /></li>
+</ul>
+</div>
+{/if}
+
+<fieldset>
+{if $item->getType()==3}
+<p><label for="username" class="">* {$locale->msg('username')}:</label><strong>{$item->getUsername()}</strong></p>
+{else}
+<p><label class="" for="username">* {$locale->msg('username')}:</label><strong>{$item->getUsername()}</strong></p>
+{/if}
+<!-- <div class="boxTyle">
+<label for="password">* {$locale->msg('password')}:</label>
+<input class="small" type="password" value="" name="password" id="password" />
+<div class="helpIcon"><a href="#" class="btnHelp"><img src="/{$templatePath}/{$userTemplate}/images/help_button.gif" width="14" height="14" alt="Hint" /></a>
+<div class="alertPopup">
+ <h4>{$locale->msg('password')}</h4>
+<p>{$locale->msg('leave_password_blank')}</p> 
+</div>
+</div>
+</div> -->
+<!-- <p><label for="confirm_password">* {$locale->msg('confirm_password')}:</label>
+<input class="small" type="password" value="" name="confirm_password" id="confirm_password" /></p> -->
+<p><label class="" for="fullname">* Mã nhân viên:</label><strong>{$item->getidNV()}</strong></p>
+<p><label class="" for="fullname">* {$locale->msg('fullname')}:</label><strong>{$item->getFullname()}</strong></p>
+<p><label for="title"> Ngày sinh : </label>{$item->getDateBirth()|date_format:'%d'}-{$item->getDateBirth()|date_format:'%m'}-{$item->getDateBirth()|date_format:'%Y'}</p>
+
+<ul class="tabs_quanly">
+	<li class="active" onclick="menuactive(this),tabactive(0,'.tabstai')">Cơ bản</li>
+	<li onclick="menuactive(this),tabactive(1,'.tabstai')">Người phụ thuộc</li>
+	<li onclick="menuactive(this),tabactive(2,'.tabstai')">Khen thưởng/Kỷ luật</li>
+	<li onclick="menuactive(this),tabactive(3,'.tabstai')">Ngày phép năm </li>
+</ul>
+<div class="tab_1 active tabstai">	
+<p><label for="gioitinh">Giới tính:</label>{$item->getGioitinhTextBackend()}</p>
+<p><label for="dantoc">Dân tộc:</label>
+{if $item->getDantoc() eq 1}Kinh{/if}
+{if $item->getDantoc() eq 2}Hoa{/if}
+{if $item->getDantoc() eq 3}Khmer{/if}
+{if $item->getDantoc() eq 4}Chăm{/if}
+{if $item->getDantoc() eq 5}Khác{/if}
+<p><label for="tongiao">Tôn giáo:</label>
+{if $item->getTongiao() eq 1}Phật{/if}
+{if $item->getTongiao() eq 2}Thiên Chúa{/if}
+{if $item->getTongiao() eq 3}Tin Lành{/if}
+{if $item->getTongiao() eq 4}Khác{/if}
+<p><label for="Weight">Cân nặng:</label>{$item->getWeight()}</p>
+<p><label for="Height">Chiều cao:</label>{$item->getHeight()}</p>
+<p><label for="telephone">{$locale->msg('telephone')}:</label>{$item->getTel()}</p>
+<p><label for="email">{$locale->msg('email')}:</label>{$item->getEmail()}</p>
+<p><label for="nguyenquan">CMND:</label>{$item->getCMND()}</p>
+<p><label for="nguyenquan">Ngày cấp:</label>{$item->getDatecap()|date_format:'%d'}-{$item->getDatecap()|date_format:'%m'}-{$item->getDatecap()|date_format:'%Y'}</p>
+<p><label for="noicap">Nơi cấp:</label>{$item->getNoicap()}</p>
+<p><label for="addresstt">{$locale->msg('address')}:</label>{if $item->getAddressTT()}{$item->getAddressTT()}, {$item->getQuanhuyenTT()}, {$item->getTinhthanhTT()}{/if}</p>
+<p><label for="nguyenquan">Địa chỉ liên hệ:</label>{if $item->getAddressLH()}{$item->getAddressLH()}, {$item->getQuanhuyenLH()}, {$item->getTinhthanhLH()}{/if}
+</p>
+<p class="tag"><label for="doanvien">Đoàn viên:</label>
+{if $item->getDoanvien() eq 1}{$locale->msg('co')}{/if}
+{if $item->getDoanvien() eq 2}{$locale->msg('khong')}{/if}</p>
+<p class="tag"><label for="dangvien">Đảng viên:</label>
+{if $item->getDangvien() eq 1}{$locale->msg('co')}{/if}
+{if $item->getDangvien() eq 2}{$locale->msg('khong')}{/if}</p>
+<p class="tag"><label for="label">Người liên hệ khi cần:</label>
+{if $item->getContactPerson()}
+	{$item->getContactPerson()}
+{/if}
+</p>
+<p class="tag"><label for="label">Quan hệ:</label>
+{if $item->getContactRelationship()}
+	{$item->getContactRelationship()}
+{/if}
+</p>
+<p class="tag"><label for="label">Số điện thoại:</label>
+{if $item->getContactPhone()}
+	{$item->getContactPhone()}
+{/if}
+</p>
+<p><label for="honnhan">Tình trạng hôn nhân:</label>
+{if $item->getTypeMarry() eq 1}{$locale->msg('marry')}{/if}
+{if $item->getTypeMarry() eq 2}{$locale->msg('nomarry')}{/if}
+{if $item->getTypeMarry() eq 3}{$locale->msg('lyhon')}{/if}
+</p>
+{if $item->getTypeMarry() eq 2}
+<p class="tag_vochong" style="display: block;"><label for="vochong">Họ tên vợ/chồng:</label>{$item->getNameVochong()}</p>
+{/if}
+<p><label for="vanhoa">Trình độ văn hóa:</label>
+{if $item->getTrinhdoVH() eq 1}{$locale->msg('9/12')}{/if}
+{if $item->getTrinhdoVH() eq 2}{$locale->msg('12/12')}{/if}
+{if $item->getTrinhdoVH() eq 3}{$locale->msg('trungcap')}{/if}
+{if $item->getTrinhdoVH() eq 4}{$locale->msg('caodang')}{/if}
+{if $item->getTrinhdoVH() eq 5}{$locale->msg('daihoc')}{/if}
+{if $item->getTrinhdoVH() eq 6}{$locale->msg('saudaihoc')}{/if}
+</p>
+<p><label for="ngoaingu">Ngoại ngữ:</label>
+{if $item->getProperty('anh') eq 'Anh'} - Anh{/if}
+{if $item->getProperty('phap') eq 'Pháp'} - Pháp{/if}
+{if $item->getProperty('duc') eq 'Đức'} - Đức{/if}
+{if $item->getProperty('hoa') eq 'Hoa'} - Hoa{/if}
+{if $item->getProperty('nhat') eq 'Nhật'} - Nhật{/if}
+{if $item->getProperty('han') eq 'Hàn'} - Hàn{/if}
+{if $item->getProperty('nga') eq 'Nga'} - Nga{/if}
+</p>
+<p><label for="title">Ngày vào làm: </label>{$item->getDateJoining()|date_format:'%d'}-{$item->getDateJoining()|date_format:'%m'}-{$item->getDateJoining()|date_format:'%Y'}</p>
+<p><label for="title">Ngày nghỉ việc: </label>{if $item->getDateLeaving() ne '1970-01-01'}{$item->getDateLeaving()|date_format:'%d-%m-%Y'}{/if}</p><p><label for="user_group">Vị trí:</label>
+{if $item->getType() eq 1}{$locale->msg('employment')}{/if}
+{if $item->getType() eq 2}{$locale->msg('managerment')}{/if}
+{if $item->getType() eq 3}{$locale->msg('founder')}{/if}
+</p>
+<p><label for="muctieu">Mục tiêu:</label>{$target->getNameFromId($item->getIdTarget())}</p>
+<p><label for="kinhnghiem">Kinh nghiệm:</label>{$item->getKinhnghiem()}</p>
+<p><label for="nguoigioithieu">Người giới thiệu:</label>{$users->getFullNameFromId({$item->getIdGioithieu()})}</p>
+<p><label for="sotk">Số tài khoản:</label>{$item->getSTK()}</p>
+<p><label for="name_nh">Tên ngân hàng:</label>{$item->getNameNGH()}</p>
+<p class="tag"><label for="hoso">Thông tin hồ sơ:</label>
+{if $item->getProperty('syll') eq 'Sơ yếu lý lịch'} - Sơ yếu lý lịch{/if}
+{if $item->getProperty('gksk') eq 'Giấy khám sức khỏe'} - Giấy khám sức khỏe{/if}
+{if $item->getProperty('dxv') eq 'Đơn xin việc'} - Đơn xin việc{/if}
+{if $item->getProperty('hk') eq 'Hộ khẩu'} - Hộ khẩu{/if}
+{if $item->getProperty('bc') eq 'Bằng cấp'} - Bằng cấp{/if}
+{if $item->getProperty('xnhk') eq 'Xác nhận hạnh kiểm'} - Xác nhận hạnh kiểm{/if}
+{if $item->getProperty('chungminh') eq 'CMND'} - CMND{/if}
+{if $item->getProperty('knbv') eq 'Kinh nghiệm bảo vệ'} - Kinh nghiệm bảo vệ{/if}
+</p>
+<p class="tag"><label for="quannhan">Cựu quân nhân:</label>
+{if $item->getCuuQuanNhan() eq 1}{$locale->msg('co')}{/if}
+{if $item->getCuuQuanNhan() eq 2}{$locale->msg('khong')}{/if}
+<p class="tag"><label for="baohiem">Bảo hiểm:</label>
+{if $item->getBaohiem() eq 1}{$locale->msg('co')}{/if}
+{if $item->getBaohiem() eq 2}{$locale->msg('khong')}{/if}
+<div class="tag_BH">
+	<p>
+	<label for="BHYT">Mức chi trả BHYT (%):</label>{$item->getBHYT()}
+  </p>
+  <p>	
+	<label for="BHXH">Mức chi trả BHXH (%):</label>{$item->getBHXH()}
+  </p>
+  <p>
+	<label for="BHTN">Mức chi trả BHTN (%):</label>{$item->getBHTN()}
+  </p>
+</div>
+<p class="tag"><label for="baohiem">Lương tính bảo hiểm:</label>
+{if $item->getLuongBH() eq 1}{$locale->msg('thucte')}{/if}
+{if $item->getLuongBH() eq 2}{$locale->msg('codinh')}{/if}
+{if $item->getLuongBH() eq 2}
+<div class="tag_LCD" style="display: block;">
+	<p class="lcd">
+	<label for="lcd">Lương cố định:</label>{$item->getLuongcdBH()}
+	<p>
+</div>
+{/if}
+</p>
+<p class="tag"><label for="TNCN">Thuế thu nhập cá nhân:</label>
+{if $item->getThueTNCN() eq 1}{$locale->msg('co')}{/if}
+{if $item->getThueTNCN() eq 2}{$locale->msg('khong')}{/if}
+<p class="tag"><label for="thueTNCN">Lương tính thuế thu nhập cá nhân:</label>
+{if $item->getLuongTNCN() eq 1}{$locale->msg('thucte')}{/if}
+{if $item->getLuongTNCN() eq 2}{$locale->msg('codinh')}{/if}
+{if $item->getLuongTNCN() eq 2}
+<div class="tag_TLCD" style="display: block;">
+	<p class="lcd">
+	<label for="lcd">Lương cố định:</label>{$item->getLuongcdTNCN()}
+	<p>
+</div>
+{/if}
+<p><label for="tomtat">Tóm tắt bản thân:</label>{$item->getProperty('tomtat')}</p>
+<p><label for="thigiac">Thị giác</label>{$item->getThigiac()}</p>
+<p><label for="tiensu">Tiền sử bệnh tật:</label>{$item->getProperty('tiensu')}</p>
+<p><label for="lamviec">Lịch sử làm việc:</label>{$item->getProperty('lichsulamviec')}</p>
+<p><label for="files">Hình ảnh đính kèm:</label>
+{assign var=photos value=$item->getProperty('photos')}
+{if $photos}
+<div class="listPhoto attachments_last">
+<ul>
+{foreach from=$photos item=photo}
+<li><img src="/upload/{$storeId}/users/l_{$photo}" width="100" /></li>
+{/foreach}
+</ul>
+</div>
+</p>
+{/if}
+</div>
+<div class="tabstai npt">
+	{if $listDependent}
+	{foreach from=$listDependent item=dependent}
+		<p><label for="ten">Họ tên:</label>{$dependent->getName()}</p>
+		<p><label for="ngaysinh">Ngày sinh:</label>{$dependent->getDatebirth()|date_format:'%d'}-{$dependent->getDatebirth()|date_format:'%m'}-{$dependent->getDatebirth()|date_format:'%Y'}</p>
+		<p><label for="cmnd">CMND:</label>{$dependent->getCmnd()}</p>
+		<p><label for="quanhe">Quan hệ:</label>{$dependent->getRelationshipTextBackend()}</p>
+		<p><label for="files">Hình ảnh đính kèm:</label>
+			{assign var=photos value=$dependent->getProperty('photos')}
+			{if $photos}
+			<div class="listPhoto attachments_last">
+			<ul>
+			{foreach from=$photos item=photo}
+			<li><img src="/upload/{$storeId}/dependent/l_{$photo}" width="100" /></li>
+			{/foreach}
+			</ul>
+			</div>
+			{/if}
+		</p>
+	{/foreach}
+	{/if}
+</div>
+<div class="tabstai ktkt">
+	{if $listAward}
+	{foreach from=$listAward key=i item=award}
+		<p><label for="ten">Tên khoản thưởng:</label>{$award->getNameAward()}</p>
+		<p class="tag"><label for="loaithuong">Loại thưởng:</label>
+			{if $award->getSpeciesaward() eq 1}%{/if}
+			{if $award->getSpeciesaward() eq 2}Tiền{/if}
+		</p>
+		<p><label for="ten">Mức thưởng:</label>{$award->getMoneyaward()}</p>
+		<p><label for="ngaybatdau">Thời gian bắt đầu:</label>{$award->getDatestart()|date_format:'%d'}-{$award->getDatestart()|date_format:'%m'}-{$award->getDatestart()|date_format:'%Y'}</p>
+		<p><label for="ngayketthuc">Thời gian kết thúc:</label>{$award->getDatefinish()|date_format:'%d'}-{$award->getDatefinish()|date_format:'%m'}-{$award->getDatefinish()|date_format:'%Y'}</p>
+		{if ($i+1) < count($listAward)}<did class="line"></did>{/if}    
+	{/foreach}
+	{/if}
+
+
+</div>
+<div class="tabstai npn">
+	{if $listyear}
+	{foreach from=$listyear key=k item=year}
+		<p><label for="ten">{$locale->msg('year')}:</label>{$year->getYear()}</p>
+		<p><label for="cmnd">{$locale->msg('numberday')}:</label>{$year->getDayyear()}</p>
+		{if ($k+1) < count($listyear)}<did class="line"></did>{/if}    	
+	{/foreach}
+	{/if}
+</div>
+<!-- <p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="staff" />
+<input type="hidden" name="mod" value="edit" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="id" value="{$item->getId()}" />
+
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="submit" value="{$locale->msg('button_submit')}" title="{$locale->msg('button_submit')}" name="btnSubmit" />
+<input type="reset" value="{$locale->msg('button_reset')}" title="{$locale->msg('button_reset')}" name="btnReset" />
+<input type="button" onclick="javascript:formSubmit('formEdit','list','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+</p> -->
+</fieldset>
+</form>
+<!-- {else} -->
+<!-- Load submitted info -->
+<!-- <form action="/{$aScript}" method="post" name="formEdit" id="formEdit" >
+<fieldset>
+<p><strong>* {$locale->msg('required_fields')}</strong></p>
+{if $authUser->isSiteFounder() || $authUser->isSiteAdmin()}
+<p><label for="username">* {$locale->msg('username')}: </label><strong>{if isset($error.INPUT)}{$error.INPUT.username.value}{/if}</strong></p>
+<input type="hidden" name="username" value="{$error.INPUT.username.value}" />
+{else}
+<p><label for="username">* {$locale->msg('username')}: </label>
+<input class="small" type="text" value="{if isset($error.INPUT)}{$error.INPUT.username.value}{/if}" name="username" id="username" />
+</p>
+{/if}
+<p{if isset($error.INPUT) && $error.INPUT.password.error} class="errormsg"{/if}><label for="password">* {$locale->msg('password')}:</label>
+<input class="small" type="password" value="{if isset($error.INPUT)}{$error.INPUT.password.value}{/if}" name="password" id="password" /></p>
+<p{if isset($error.INPUT) && $error.INPUT.confirm_password.error} class="errormsg"{/if}><label for="confirm_password">* {$locale->msg('confirm_password')}:</label>
+<input class="small" type="password" value="{if isset($error.INPUT)}{$error.INPUT.confirm_password.value}{/if}" name="confirm_password" id="confirm_password" /></p>
+<p{if isset($error.INPUT) && $error.INPUT.fullname.error} class="errormsg"{/if}><label for="fullname">* {$locale->msg('fullname')}:</label>
+<input class="medium" type="text" value="{if isset($error.INPUT)}{$error.INPUT.fullname.value}{/if}" name="fullname" id="fullname" /></p>
+<p{if isset($error.INPUT) && $error.INPUT.email.error} class="errormsg"{/if}><label for="email">* {$locale->msg('email')}:</label>
+<input class="medium" type="text" value="{if isset($error.INPUT)}{$error.INPUT.email.value}{/if}" name="email" id="email" /></p>
+<p><label for="email">{$locale->msg('address')}:</label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.address.value}{/if}" name="address" id="address" /></p>
+<p><label for="telephone">{$locale->msg('telephone')}:</label>
+<input class="small" type="text" value="{if isset($error.INPUT)}{$error.INPUT.telephone.value}{/if}" name="telephone" id="telephone" /></p>
+<p><label for="user_group">{$locale->msg('user_group')}:</label>
+<select class="small" name="user_group" id="user_group">
+<option value="1"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 1}selected="selected"{/if}>{$locale->msg('employment')}</option>
+<option value="2"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 2}selected="selected"{/if}>{$locale->msg('managerment')}</option>
+{if $authUser->isSiteFounder() || $authUser->isSiteAdmin()}<option value="3"{if isset($error.INPUT) && $error.INPUT.user_group.value eq 3}selected="selected"{/if}>{$locale->msg('founder')}</option>{/if}
+</select></p> <p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="staff" />
+<input type="hidden" name="mod" value="edit" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="hidden" name="id" value="{$error.INPUT.id.value}" />
+
+<input type="submit" value="{$locale->msg('button_submit')}" title="{$locale->msg('button_submit')}" name="btnSubmit" />
+<input type="reset" value="{$locale->msg('button_reset')}" title="{$locale->msg('button_reset')}" name="btnReset" />
+<input type="button" onclick="javascript:formSubmit('formEdit','list','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+</p> 
+</fieldset>
+</form> -->
+{/if}
+<!-- {else}{$locale->msg('code_invalid')}...{/if} -->
+</div>
+</div>

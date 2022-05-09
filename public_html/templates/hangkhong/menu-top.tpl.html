@@ -1,0 +1,27 @@
+
+<ul class="header__list">
+    {if $menuTopLeft}
+    {foreach from=$menuTopLeft item=itemMenuTopLeft}
+    <li>
+        <a class="item-{$itemMenuTopLeft->getProperty('custom_css')}" data-target="{$itemMenuTopLeft->getPosition()}">
+            {$itemMenuTopLeft->getName({$lang})}
+        </a>
+    </li>
+    {/foreach}
+    {/if}
+    </ul>
+    <a class="header__logo hide-on-mobile-tablet" href="/">
+    <img  src="{$estore->getProperty('store_logo')}" alt="logo">
+    </a>
+    <input type="hidden" id="new-logo" name="logo" value="{$estore->getProperty('custom_logo_two')}">
+    <ul class="header__list ">
+    {if $menuTopRight}
+    {foreach from=$menuTopRight item=itemMenuTopRight}
+    <li>
+        <a class="item-{$itemMenuTopRight->getProperty('custom_css')}" data-target="{$itemMenuTopRight->getPosition()}">
+            {$itemMenuTopRight->getName({$lang})}
+        </a>
+    </li>
+    {/foreach}
+    {/if}
+</ul>

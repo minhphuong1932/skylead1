@@ -1,0 +1,73 @@
+body {font-size:16px; font-family:"Times New Roman", Times, serif;}
+p{padding:0px; margin:0px}
+#header, #nav, #footer, #lev {display:none; width:100%; !important}
+.breadcrumb {display:none; width:100%; !important}
+#print, #button{display:none; !important}
+.frame{	width:100%;	margin-top:10px; clear:both; padding: 0 20px 10px 0}
+.frame p {padding:0;}
+.frame table tr {border-top:solid 1px #000000; display: table-row; vertical-align:middle;}
+.frame table td{ padding:0 5px}
+	.print2nd{
+
+    /* text-align: center; */
+    font-size: 145px;
+    position: absolute;
+    font-family: Helvetica;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    text-align: center;
+    /* opacity: 0; */
+    color: #00000024;
+    font-weight: 700;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+.frame{
+	position: relative;
+}
+/////////////////////
+#swapper_report{
+		width:750px;
+		margin-top:25px;
+		margin:auto;
+		margin-bottom:50px;
+	}
+	#swapper_report div{		
+		margin-top:10px;	
+	}
+	#swapper_report span.btn{		
+		width: 80px; float:none; padding:4px 10px; background:#; color:#fff; font-weight:bold; border:none;
+	}
+	#swapper_report span.btn input{
+	}
+
+	#swapper_report p.textfooter{		
+		float:left;
+		width:355px;
+		text-align:center;		
+	}
+	#swapper_report table.report{
+		width :750px;
+		margin:auto;
+		padding:0px;
+		margin-left:0px;
+		word-spacing:inherit;
+	}
+	#swapper_report div table.report tr td{
+		border:#000000 0.5px solid;
+		padding-left:5px;
+	}
+	.tieude{
+		text-align:center;
+		font-size:30px;
+	}
+	#colum1{
+		margin-top:10px;
+	}
+	.errorlist{
+		background:url(images/ico_li.gif) 0 6px no-repeat; padding:0 0 0 10px; margin:0 0 7px 0
+	}
+	.errorBox { border:#cc0000 solid 1px; padding:10px 10px 10px 40px; background:url(../images/error_icon.gif) 10px 10px no-repeat #FFCCCC; margin-bottom:15px; }

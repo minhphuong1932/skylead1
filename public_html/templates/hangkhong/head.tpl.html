@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{if $lang=='vn'}vi{else}en{/if}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <title>{if $pageTitle}{$pageTitle|strip_tags}{else}{if $lang=="vn"}{$estore->getProperty('custom_title_seo')}{else}{$estore->getProperty('custom_title_seo_en')}{/if}{/if}</title>
+    <link rel="shortcut icon" type=image/x-icon href="{$estore->getProperty('admin_logo')}">
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/slick.css" />
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/jquery.parallax.css" />
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/all.css" />
+    <!-- <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/plyr.css{$estore->getProperty('custom_version_css_js')}" /> -->
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/lity.min.css" />
+    <link rel="stylesheet" href="/{$templatePath}/{$userTemplate}/css/main.css{$estore->getProperty('custom_version_css_js')}" />
+
+    <meta property="fb:app_id" content="636139804451313" />
+    <meta name="description" content="{if $pageDescription}{$pageDescription|strip_tags}{else}{if $lang=='vn'}{$estore->getDescription()}{else}{$estore->getProperty('custom_desc_seo_en')}{/if}{/if}" />
+    <meta name="keywords" content="{if $pageKeywords}{$pageKeywords|strip_tags}{else}{if $lang=='vn'}{$estore->getKeywords()}{else}{$estore->getProperty('custom_keyword_seo_en')}{/if}{/if}">
+    <meta property="og:locale" content="vi_VN" />
+    {if $currentUrlx1}
+    <link rel="canonical" href="{$currentUrlx1}" />
+    <meta property="og:url" content="{$currentUrlx1}" />
+    {/if}
+    <meta property="og:type" content="{if $typeweb}{$typeweb}{else}website{/if}" />
+    <meta property="og:title" content="{if $pageTitle}{$pageTitle|strip_tags}{else}{if $lang=='vn'}{$estore->getProperty('custom_title_seo')}{else}{$estore->getProperty('custom_title_seo_en')}{/if}{/if}" />
+    <meta property="og:description" content="{if $pageDescription}{$pageDescription|strip_tags}{else}{if $lang=='vn'}{$estore->getDescription()}{else}{$estore->getProperty('custom_desc_seo_en')}{/if}{/if}" />
+    {if $logoimg1}
+    <meta property="og:image" content="{if $logoimg1}{$logoimg1}{else}{$logoimg1}{/if}" />
+    {else}
+    <meta property="og:image" content="{$logoimg}" />
+    {/if}
+    <meta property="og:image:alt" content="image-item" />
+    <meta property="og:image:width" content="384" />
+    <meta property="og:image:height" content="384" />
+    <meta property="og:site_name" content="{if $pageTitle}{$pageTitle|strip_tags}{else}{if $lang=='vn'}{$estore->getProperty('custom_title_seo')}{else}{$estore->getProperty('custom_title_seo_en')}{/if}{/if}" />
+    <meta name="google-site-verification" content="JNVQhK960NdPxkdpNNO1iZwZOVcmqORhL7Ido1J5kto" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    {literal}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ED5X7GCTB8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ED5X7GCTB8');
+    </script>
+    {/literal}
+    
+  </head>
+

@@ -1,0 +1,160 @@
+{include file='head.tpl.html' title='site-head'}
+  <body>
+    <div class="loading">
+      <img src="{$estore->getProperty('admin_logo')}" alt="logo">
+  </div>
+    <div class="modal__shadow"></div>
+    <div class="noti-stack"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__bar header__bar--color header__bar--2">
+            {include file='menu-right.tpl.html' title='site-menu-right'}
+        </div>
+      </header>
+      <main class="main about">
+        {if $imageHeader}
+        <div class="about__top image__zoom__block">
+          <div class="image__zoom image__zoom--toggle" style="background-image: url(/upload/1/resources/l_{$imageHeader->getProperty('logo')});"></div>
+          <div class="about__top__modal"></div>
+          <div class="about__top__block load-effect">
+              {if $lang =="vn"}
+              {$imageHeader->getProperty('detail')}
+              {else}
+              {$imageHeader->getProperty('detail_en')}
+              {/if}
+          </div>
+        </div>
+        {/if}
+        <div class="lazy">
+          <div class="about__slider__container">
+            <div class="about__slider">
+                {if $slideInspiration}
+                {foreach from=$slideInspiration item=itemInspiration}
+                    <div class="about__slide">
+                    <div class="about__slide__content">
+                        <div class="about__slide__title">
+                        {if $lang =='vn'}
+                          {$itemInspiration->getProperty('custom_title_ads')}
+                        {else}
+                          {$itemInspiration->getProperty('custom_en_title')}
+                        {/if}
+                        </div>
+                        <div class="about__slide__text ">
+                        {if $lang =='vn'}
+                          {$itemInspiration->getProperty('custom_content_ads')}
+                        {else}
+                          {$itemInspiration->getProperty('custom_en_sapo')}
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="about__slide__image" style="background-image: url(/upload/1/resources/l_{$itemInspiration->getProperty('logo')})"></div>
+                    </div>
+                {/foreach}
+                {/if}
+            </div>
+          </div>
+        </div>
+        <div class="about__maxim ">
+          <div class="about__maxim__block lazy">
+            <div data-effect="slide-right">
+              <div class="about__maxim__content" >
+                {if $lang =="vn"}
+                {$estore->getProperty('custom_title_johnon')}
+                {else}
+                {$estore->getProperty('custom_title_johnon_en')}
+                {/if}
+              </div>
+            </div>
+            <div data-effect="slide-left">
+              <div class="about__maxim__author" data-effect="slide-left">
+                {if $lang =="vn"}
+                {$estore->getProperty('custom_update_name_johnnie')}
+                {else}
+                {$estore->getProperty('custom_update_name_johnnie_en')}
+                {/if}
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="lazy">
+          <div class="about__slider__container about__slider__container--2">
+            <div class="about__slider">
+            {if $slideCompanion}
+            {foreach from=$slideCompanion item=itemCompanion}
+                <div class="about__slide about__slide--2">
+                <div class="about__slide__content about__slide__content--2">
+                    <div class="about__slide__title">
+                    {if $lang =='vn'}
+                      {$itemCompanion->getProperty('custom_title_ads')}
+                    {else}
+                      {$itemCompanion->getProperty('custom_en_title')}
+                    {/if}
+                    </div>
+                    <div class="about__slide__text about__slide__text--2">
+                    {if $lang =='vn'}
+                      {$itemCompanion->getProperty('custom_content_ads')}
+                    {else}
+                      {$itemCompanion->getProperty('custom_en_sapo')}
+                    {/if}
+                    </div>
+                </div>
+                <div class="about__slide__image" style="background-image: url(/upload/1/resources/l_{$itemCompanion->getProperty('logo')})"></div>
+                </div>
+            {/foreach}
+            {/if}
+            </div>
+            <a class="about__slider__link lazy">
+              <div data-effect="slide-left">
+              	{if $lang=="vn"}
+                <span>{$estore->getProperty('custom_title_input')}</span>
+                {else}
+                <span>{$estore->getProperty('custom_title_input_en')}</span>
+                {/if}
+              </div>
+              <div style="display: inherit;" data-effect="slide-right">
+                <img src="/{$templatePath}/{$userTemplate}/img/planeicon.png" alt="image" />
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="about__bot">
+          {if $imageFooter}
+          {foreach from=$imageFooter item=itemImg}
+          <div class="about__bot__image">
+            <img src="/upload/1/resources/l_{$itemImg->getProperty('logo')}" alt="image">
+            <div class="about__bot__image__modal"></div>
+            <div class="about__bot__image__body">
+              <div class="about__bot__image__block">
+                {if $lang=="vn"}
+                {$itemImg->getProperty('detail')}
+                {else}
+                {$itemImg->getProperty('detail_en')}
+                {/if}
+              </div>
+              <div class="about__bot__image__content">
+                <span>
+                  {if $lang=="vn"}
+                  {$itemImg->getProperty('custom_content_ads')}
+                  {else}
+                  {$itemImg->getProperty('custom_en_sapo')}
+                  {/if}
+                </span>
+              </div>
+            </div>
+          </div>
+          {/foreach}
+          {/if}
+         
+        </div>
+        <div class="about__slider__popup plane-form__container">
+          <i class="fas fa-times"></i>
+          <form id="plane-form" class="plane-form">
+            {include file='form.tpl.html' title='site-form'}
+          </form>
+        </div>
+      </main>
+    </div>
+    <br><br><br>
+    <br><br><br>
+    {include file='footer.tpl.html' title='site-footer'}
+

@@ -1,0 +1,107 @@
+:root{
+	--primary-color: rgb(2, 117, 216);
+	--primary-color-opacity:rgba(2, 117, 216, .5);
+}
+
+html.color_primary #header,html.color_primary .up {
+    background: linear-gradient(to right, var(--primary-color) 0%, var(--primary-color-opacity) 100%);
+}
+#header {
+	background: white !important;
+}
+:root {
+	    --primary-color: #e9354b !important;
+}
+.fa-bell {
+	color: #e9354b !important;
+}
+html.color_primary a:hover {
+	/*color: #0275d8;*/
+	text-decoration: none;
+}
+
+html.color_primary .button_setting,html.color_primary .tabs .current a,html.color_primary .search .btnSearch {
+	background: var(--primary-color);
+}
+html.color_primary .tabs,
+html.color_primary #nav.fixed,
+html.color_primary #lev li.currentsub {
+	border-bottom-color: var(--primary-color);
+}
+html.color_primary .fix_breadcrumb .last,
+html.color_primary #footer>p a,
+html.color_primary .icons li a:hover,
+html.color_primary #lev li a:hover {
+	color: var(--primary-color);
+}
+html.color_primary .fix_breadcrumb li:not(.last):after {
+	content: "\f105";
+	position:absolute;
+	right: 0;
+	top:8px;
+	font-size:16px;
+    color: var(--primary-color);
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+html.color_primary #lev .current>a, #lev .current2>a {
+	color: var(--primary-color);
+}
+html.color_primary #lev .current:after {
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	left:10px;
+	top:8px
+}
+ html.color_primary #lev .levInner>ul>li:after {
+	content: "\f105";
+	position:absolute;
+	left: 8px;
+	top: 10px;
+	font-size:16px;
+    color: var(--primary-color);
+	 display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+html.color_primary #lev li li :after {
+	content: "\f105";
+	position:absolute;
+	left: 6px; 
+	top: 5px;
+	font-size:16px;
+    color: var(--primary-color);
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+html.color_primary #lev li span:hover {
+	color:  var(--primary-color);
+}
+/*html.color_primary .listBtn a */
+html.color_primary .listCategory .btnSubmit2 {
+	background: var(--primary-color);
+}
+html.color_primary .helpIcon,html.color_primary .alertPopup h4 {
+	background: var(--primary-color);
+}
+
+.color_input input[type='radio']:checked:after {
+	width: 9px;
+	height: 9px;
+	border-radius: 15px;
+	top: 1px;
+	left: 2px;
+	position: relative;
+	background-color: var(--primary-color);
+	content: '';
+	display: inline-block;
+	visibility: visible;
+	border: 2px solid white;
+}

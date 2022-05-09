@@ -1,0 +1,244 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+{if $error}
+{if $error.invalid || $error.message}
+{assign var=input value=$error.INPUT}
+<div class="errorBox">
+<h2>{$locale->msg('error_notes')}:</h2>
+<ul class="listStyle">
+{foreach from=$input item=field}
+{if $field.error}<li>{$field.message}</li>{/if}
+{/foreach}
+<li>{$error.message}</li>
+</ul>
+</div>
+{/if}
+{/if}
+<div class="formContent">
+<h1>{$locale->msg('view_document')}</h1>
+{if $validItem}
+{if $item}
+<!-- Load product info -->
+<form action="/{$aScript}" method="post" name="formEdit" id="formEdit" enctype="multipart/form-data" class="documentform">
+<fieldset>
+<p><strong>* {$locale->msg('required_fields')}</strong></p>
+<p><label for="document_name">* {$locale->msg('document_name')}:</label><strong>{$item->getName()}</strong></p>
+<p><label for="customer_id">{$locale->msg('customer_id')}:</label>
+<strong>{$customers->getFullNameFromId($item->getCustomerId())}</strong></p>
+<p><label for="document_type_id">{$locale->msg('document_type_id')}:</label>
+<strong>{$documentTypes->getNameFromId($item->getDocumentTypeId())}</strong></p>
+<p><label for="financial_year">{$locale->msg('financial_year')}:</label>
+<strong>{$item->getFinancialYear()}</strong></p>
+<p><label for="keywords">* {$locale->msg('keywords')}:</label>
+<strong>{$item->getKeywords()}</strong></p>
+<p><label for="files">{$locale->msg('attachments')}:</label></p>
+{assign var=videos value=$item->getProperty('videos')}
+{assign var=files value=$item->getProperty('files')}
+{assign var=photos value=$item->getProperty('photos')}
+{if $videos || $files || photos}
+<p>
+<div class="listFile">
+<ul>
+{if $videos}
+{foreach from=$videos item=video}
+<li><a href="/upload/{$item->getCustomerId()}/{$video}" target="_blank">{$video}</a></li>
+{/foreach}
+{/if}
+{if $photos}
+{foreach from=$photos item=photo key=phot}
+<li><img src="/templates/admin/images/icon-image.png" alt="Chỉnh sửa" width="25" height="25"><a href="/upload/{$item->getCustomerId()}/l_{$photo}" target="_blank">{$photo}</a></li>
+{/foreach}
+{/if}
+{if $files}
+{foreach from=$files item=file key=fi}
+<li><img src="/templates/admin/images/{if strtolower(end(explode('.',$file)))=='pdf'}PDF-logo.png{elseif strtolower(end(explode('.',$file)))=='docx'}word-logo.png{else}file-icon.png{/if}" alt="Chỉnh sửa" width="25" height="25"> <a href="/upload/{$item->getCustomerId()}/{$file}" target="_blank">{$file}</a></li>
+{/foreach}
+{/if}
+</ul>
+</div>
+</p>
+{/if}
+<p><label for="date_processed">* {$locale->msg('date_processed')}:</label><strong>{$item->getDateProcessed()}</strong></p>
+<p><label for="user_processed">{$locale->msg('user_processed')}:</label>
+<strong>{$users->getFullNameFromId($item->getUserProcessed())}</strong></p>
+<p><label for="date_approved">* {$locale->msg('date_approved')}:</label><strong>{$item->getDateApproved()}</strong></p>
+<p><label for="user_approved">{$locale->msg('user_approved')}:</label>
+<strong>{$users->getFullNameFromId($item->getUserApproved())}</strong></p>
+
+<p><label for="status">{$locale->msg('document_stat')}:</label>
+<strong>{$amessages.document_status.{$item->getStatus()}}</strong></p>
+<br />
+<p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="customer" />
+<input type="hidden" name="mod" value="infodocument" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="id" value="{$item->getId()}" />
+<input type="hidden" name="name" value="{$item->getName()}" />
+<input type="hidden" name="lang" value="{$lang}" />
+{if $authUser->getType()!=0}
+	{if $authUser->getType()==1}
+		{if $item->getStatus()!=2 && $item->getStatus()!=4}
+		<a href="/{$aScript}?op=manage&act=customer&mod=editdocument&id={$item->getId()}&cid={$customerId}&lang={$lang}" title="{$locale->msg('edit')}">
+<input type="button"  value="{$locale->msg('edit')}" title="{$locale->msg('edit')}" name="btn" /></a>
+		{/if}
+		{elseif $authUser->getType()==2}
+			{if $item->getStatus()!=3}
+			<a href="/{$aScript}?op=manage&act=customer&mod=editdocument&id={$item->getId()}&cid={$customerId}&lang={$lang}" title="{$locale->msg('edit')}">
+<input type="button"  value="{$locale->msg('edit')}" title="{$locale->msg('edit')}" name="btn" /></a>
+			{/if}
+		{else}
+		{if $item->getStatus()!=1}
+			<a href="/{$aScript}?op=manage&act=customer&mod=editdocument&id={$item->getId()}&cid={$customerId}&lang={$lang}" title="{$locale->msg('edit')}">
+<input type="button"  value="{$locale->msg('edit')}" title="{$locale->msg('edit')}" name="btn" /></a>
+			{/if}
+	{/if}
+
+{/if}
+<a href="/{$aScript}?op=manage&act=customer&mod=show&id={$customerId}&lang={$lang}" title="{$locale->msg('button_back')}">
+<input type="button"  value="{$locale->msg('button_back')}" title="{$locale->msg('button_back')}" name="btn" /></a>
+
+</p>
+</fieldset>
+{if $authUser->getType()!=0}
+{if $documenttrackingslist}
+<table width="95%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px;">
+<thead>
+<tr>
+	<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','username','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('sort_by_username')}">{$locale->msg('username')}</a>{if $sk eq "username"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','action','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('sort_by_action')}">{$locale->msg('action')}</a>{if $sk eq "action"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+<th><a href="javascript:void(0)" onclick="javascript:MM_sortField('parent','{$sk}','date_created','{if $sd eq "DESC"}ASC{else}DESC{/if}');" title="{$locale->msg('sort_by_date')}">{$locale->msg('date_created')}</a>{if $sk eq "date_created"}{if $sd eq "DESC"}&darr;{else}&uarr;{/if}{/if}</th>
+</tr>
+</thead>
+<tbody>
+{foreach key=no from=$documenttrackingslist item=documenttrackingitem}
+<tr class="{if $no%2 eq 0}bgType{/if} kt_track">
+<td>{$documenttrackingitem->getUsername()}</td>
+<td>{$documenttrackingitem->getAction()}</td>
+<td>{$documenttrackingitem->getDateCreated()}</td>
+</tr>
+{/foreach}
+</tbody>
+</table>
+{if count($documenttrackingslist)>10}
+<div class="btn button-loadTrack"><a class="btn" type="button" id="moretrack">Xem thêm</a></div>
+{/if}
+{/if}
+{/if}
+</form>
+<form action="/{$aScript}" method="post" name="formEdit" id="formEdit" class="documentform" >
+<p class="chatTit">Lời nhắn:</p>
+{if $chatList}
+{foreach from=$chatList item=chatItems}
+{assign var=date value=$chatItems->getDateCreated()}
+<div style="display: flex;">
+<div class="kt_all" ><label for="Username"><strong>{$users->getFullNameFromId($chatItems->getUserId())} ({$users->getTypeTextBackendFromId($chatItems->getUserId())})</strong>:</label> 
+	<div style="flex:15;line-height: 1.3;border-bottom: 1px solid #dedede;"><br>{$chatItems->getMessage()}<br><span style="float:right; font-size: 10px;"> {$date|date_format:"%H"}:{$date|date_format:"%M"}  ({$date|date_format:"%d"}-{$date|date_format:"%m"}-{$date|date_format:"%Y"})</span></div>
+</div>
+</div>
+{/foreach}
+{/if}
+<div class="btn button-loadKTAll">
+<a class="btn" type="button" id="morechat">Xem thêm</a></div>
+<textarea rows="5" cols="80" name="message" id="message" class="meschat"></textarea>
+
+<p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="customer" />
+<input type="hidden" name="mod" value="infodocument" />
+<input type="hidden" name="doo" value="submitchat" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="id" value="{$item->getId()}" />
+
+<input type="hidden" name="customerId" value="{$customerId}" />
+<input type="hidden" name="name" value="{$item->getName()}" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="submit" value="{$locale->msg('button_send')}" title="{$locale->msg('button_send')}" name="btnSubmit" />
+</p>
+</form>
+{else}
+<!-- Load submitted info -->
+<form action="/{$aScript}" method="post" name="formEdit" id="formEdit" enctype="multipart/form-data" >
+<fieldset>
+<p><strong>* {$locale->msg('required_fields')}</strong></p>
+<p{if isset($error.INPUT) && $error.INPUT.name.error} class="errormsg"{/if}><label for="document_name">* {$locale->msg('document_name')}: </label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.name.value}{/if}" name="document_name" id="document_name" /></p>
+
+<p><label for="customer_id">{$locale->msg('customer_id')}:</label>
+<select name="customer_id" id="customer_id">
+{if $customerList}
+{foreach from=$customerList item=customer}
+<option value="{$customer->getId()}"{if isset($error.INPUT) && $error.INPUT.customer_id.value eq {$customer->getId()}} selected="selected"{/if}>{$customer->getFullName()}</option>
+{/foreach}
+{/if}
+</select></p>
+
+<p><label for="document_type_id">{$locale->msg('document_type_id')}:</label>
+<select name="document_type_id" id="document_type_id">
+{if $documentTypeList}
+{foreach from=$documentTypeList item=documenttype}
+<option value="{$documenttype->getId()}"{if isset($error.INPUT) && $error.INPUT.document_type_id.value eq {$documenttype->getId()}} selected="selected"{/if}>{$documenttype->getName()}</option>
+{/foreach}
+{/if}
+</select></p>
+<p><label for="financial_year">{$locale->msg('financial_year')}:</label>
+<select  class="small" name="financial_year" id="financial_year">
+{for $foo=$smarty.now|date_format:"%Y" to 1990}
+<option value="{$foo}">{$foo}</option>
+{/for}
+</select>
+</p>
+<p{if isset($error.INPUT) && $error.INPUT.keywords.error} class="errormsg"{/if}><label for="keywords">* {$locale->msg('keywords')}: </label>
+<input type="text" value="{if isset($error.INPUT)}{$error.INPUT.keywords.value}{/if}" name="keywords" id="keywords" /></p>
+<p><label for="files">Tập tin đính kèm:</label><input type="file" name="files[]" id="files[]"><br clear="all"></p>
+<p{if isset($error.INPUT) && $error.INPUT.date_processed.error} class="errormsg"{/if}><label for="date_processed">* {$locale->msg('date_processed')}: </label>
+<input class="small" type="text" value="{if isset($error.INPUT)}{$error.INPUT.date_processed.value}{/if}" name="date_processed" id="date_processed" /></p>
+<p><label for="user_processed">{$locale->msg('user_processed')}:</label>
+<select class="small" name="user_processed" id="user_processed">
+{if $userList}
+{foreach from=$userList item=processed}
+<option value="{$processed->getId()}"{if isset($error.INPUT) && $error.INPUT.user_processed.value eq {$processed->getId()}} selected="selected"{/if}>{$processed->getFullName()}</option>
+{/foreach}
+{/if}
+</select></p>
+<p{if isset($error.INPUT) && $error.INPUT.date_approved.error} class="errormsg"{/if}><label for="date_approved">* {$locale->msg('date_approved')}: </label>
+<input class="small" type="text" value="{if isset($error.INPUT)}{$error.INPUT.date_approved.value}{/if}" name="date_approved" id="date_approved" /></p>
+
+<p><label for="user_approved">{$locale->msg('user_approved')}:</label>
+<select class="small" name="user_approved" id="user_approved">
+{if $userList}
+{foreach from=$userList item=staffname}
+<option value="{$staffname->getId()}"{if isset($error.INPUT) && $error.INPUT.user_approved.value eq {$staffname->getId()}} selected="selected"{/if}>{$staffname->getFullName()}</option>
+{/foreach}
+{/if}
+</select></p>
+<p><label for="status">{$locale->msg('document_stat')}:</label>
+<select  class="small" name="status" id="status">
+<option value="1"{if isset($error.INPUT) && $error.INPUT.status.value eq 1} selected="selected"{/if}>{$amessages.document_status.1}</option>
+<option value="0"{if isset($error.INPUT) && $error.INPUT.status.value eq 0} selected="selected"{/if}>{$amessages.document_status.0}</option>
+<option value="2"{if isset($error.INPUT) && $error.INPUT.status.value eq 2} selected="selected"{/if}>{$amessages.document_status.2}</option>
+<option value="3"{if isset($error.INPUT) && $error.INPUT.status.value eq 3} selected="selected"{/if}>{$amessages.document_status.3}</option>
+<option value="4"{if isset($error.INPUT) && $error.INPUT.status.value eq 4} selected="selected"{/if}>{$amessages.document_status.4}</option>
+</select>
+</p>
+
+<br />
+<p class="btn">
+<input type="hidden" name="op" value="manage" />
+<input type="hidden" name="act" value="customer" />
+<input type="hidden" name="mod" value="infodocument" />
+<input type="hidden" name="doo" value="submit" />
+<input type="hidden" name="id" value="{$id}" />
+<input type="hidden" name="sCode" value="{$sCode}_" />
+<input type="hidden" name="lang" value="{$lang}" />
+<input type="submit" value="{$locale->msg('button_submit')}" title="{$locale->msg('button_submit')}" name="btnSubmit" />
+<input type="reset" value="{$locale->msg('button_reset')}" title="{$locale->msg('button_reset')}" name="btnReset" />
+<input type="button" onClick="javascript:formSubmit('formEdit','list','cancel',0);" value="{$locale->msg('button_cancel')}" title="{$locale->msg('button_cancel')}" name="btnCancel" />
+</p>
+</fieldset>
+</form>
+{/if}
+{else}{$locale->msg('code_invalid')}...{/if}
+</div>
+</div>

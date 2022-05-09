@@ -1,0 +1,103 @@
+{if $result_code}<div class="message">{$amessages.result_code.$result_code}</div>{/if}
+{if $error_code}<div class="message2">{$amessages.error_code.$error_code}</div>{/if}
+<!-- <h1 style="color:red">Phần này đang có lỗi, vui lòng không sử dụng</h1> -->
+
+{if $items}
+<div id="block_print" style="font-family: Times New Roman">
+	<section>
+		<div class="container-card d-flex fontweight-700">
+			<div class="div-left w-50 text-uppercase">
+				<div class="d-flex justify-content-center">
+					<div class="div-img">
+						<img src="upload/images/lo.png" alt="">
+					</div>
+					<div class="card-content text-center">
+						<img src="upload/images/logo_ap.png" alt="">
+					</div>	
+				</div>
+				<div class="d-flex justify-content-center">
+					<div class="div-img">
+						{assign var=avatar value=$items->getProperty('avatar')}
+                {if $avatar}
+								<img src="upload/{$storeId}/users/a_{$avatar}" alt="">
+					  	  {else}
+						   <img src="upload/images/no-image.png" alt="">
+							{/if}
+					</div>
+					<div class="card-content text-center">
+						<p class="font14">{$items->getFullName()}</p>
+						{assign var=type value=$items->getType()}
+						<p class="font16">
+							{if $type ==1}<img src="upload/images/nv.png" alt="">{/if}
+							{if $type ==2}<img src="upload/images/hcns.png" alt="">{/if}
+							{if $type ==3}<img src="upload/images/qtv.png" alt="">{/if}
+							{if $type ==11}<img src="upload/images/tc.png" alt="">{/if}
+							{if $type ==12}<img src="upload/images/dtld.png" alt="">{/if}
+							{if $type ==13}<img src="upload/images/dt.png" alt="">{/if}
+							{if $type ==14}<img src="upload/images/tpnv.png" alt="">{/if}
+							{if $type ==15}<img src="upload/images/pnv.png" alt="">{/if}
+						</p>
+						<p>MNV: {$items->getIdNV()}</p>
+					</div>	
+				</div>
+			</div>
+			<div class="div-left w-50 ml-2">
+				<p class="border-bt d-inline-block">Lưu ý:</p>
+				<p class="pl-20"> 
+					<span class="pr-20">-</span>CB-NVBV phải thực hiện nghiêm túc nội quy, quy định của công ty.<br>
+					<span class="pr-20">-</span>Giữ gìn, bảo quản thẻ cẩn thận, không làm thẻ rách, hư hỏng. Nghiêm cấm tẩy xóa,thay đổi thẻ.<br>
+					<span class="pr-20">-</span>Thẻ bỏ mất phải báo cáo ngay với Phòng TC-NS để làm thẻ mới.<br>
+				</p>
+			</div>
+		</div>
+	</section>
+</div>
+<button type="button" class="luu_profile" value="IN" title="IN" name="IN" onclick="PrintElem('#block_print')"><i class="fa fa-print" aria-hidden="true"></i> IN </button>
+{else}
+<h1 style="color:red">Không tìm thấy nhân viên</h1>
+{/if}
+{literal}
+<script type="text/javascript">
+
+    function PrintElem(elem)
+    {
+        Popup($(elem).html());
+    }
+    function Popup(data) 
+    {
+        var mywindow = window.open('', 'my div', 'height=2339,width=2000');
+        mywindow.document.write('<html><head>');
+    	mywindow.document.write('<link rel="stylesheet" type="text/css" href="http://portal.baoveanphuc.com/templates/admin/css/screen.css" media="all" />');
+  	 // mywindow.document.write('<link rel="stylesheet" type="text/css" href="http://portal.baoveanphuc.com/templates/admin/css/print_card.css" media="all" />');
+    	mywindow.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/libs/plugins/font-awesome.min.css">');
+    	mywindow.document.write('<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Roboto+Condensed|Noto+Sans" rel="stylesheet">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/libs/plugins/slick.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/libs/plugins/slick-theme.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/libs/plugins/jquery-ui.min.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/style.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/bootstrap-combined.min.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/bootstrap-select.min.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/jquery.timepicker.css">');
+    	mywindow.document.write('<link rel="stylesheet" href="http://portal.baoveanphuc.com/templates/admin/css/color.css">');
+    	mywindow.document.write('<link rel="stylesheet" type="text/css" href="/templates/admin/css/fancybox/jquery.fancybox-1.3.4.css" media="screen" />');
+		
+        mywindow.document.write('</head><body">');
+        mywindow.document.write(data);
+  
+        mywindow.document.write('</body></html>');
+
+    
+    setTimeout(function(){
+       mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+       mywindow.print();
+         mywindow.close();
+       
+      },500)
+       
+
+        return true;
+    }
+</script>
+{/literal}
